@@ -62,7 +62,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     fillCells();
     //add scroll buttons
     scrollButtons();
-    textPanel();
+    // textPanel();
     displayCells();
   }
 
@@ -89,7 +89,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     textPanel.add(random);
     this.add(textPanel, BorderLayout.PAGE_START);
   }
-//hi
+
   private void fillCells() {
 
     //add the first row, blank first square and A-Z for the rest
@@ -112,7 +112,12 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
           tempJLabel.setBorder(new LineBorder(Color.GRAY, 1));
           tempList.add(tempJLabel);
         } else {
-          JTextField tempTextField = new JTextField(model.getComputedValue(new Coord(x, y)));
+          JTextField tempTextField;
+          try {
+            tempTextField = new JTextField(model.getComputedValue(new Coord(x, y)));
+          } catch (IllegalArgumentException e) {
+            tempTextField = new JTextField("#ERROR");
+          }
           tempTextField.setBorder(new LineBorder(Color.GRAY, 1));
           tempTextField.setEditable(false);
           tempTextField.setColumns(10);
@@ -193,8 +198,13 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
         tempJLabel.setBorder(new LineBorder(Color.GRAY, 1));
         tempList.add(tempJLabel);
       } else {
-        JTextField tempTextField = new JTextField(
-            model.getComputedValue(new Coord(x, furthestY - CELLSTOBESHOWNY + 1)));
+        JTextField tempTextField;
+        try {
+          tempTextField =
+              new JTextField(model.getComputedValue(new Coord(x, furthestY - CELLSTOBESHOWNY + 1)));
+        } catch (IllegalArgumentException e) {
+          tempTextField = new JTextField("#ERROR");
+        }
         tempTextField.setBorder(new LineBorder(Color.GRAY, 1));
         tempTextField.setEditable(false);
         tempTextField.setColumns(10);
@@ -218,8 +228,14 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
         tempJLabel.setBorder(new LineBorder(Color.GRAY, 1));
         tempList.add(tempJLabel);
       } else {
-        JTextField tempTextField = new JTextField(
-            model.getComputedValue(new Coord(x, furthestY)));
+        JTextField tempTextField;
+        try {
+          tempTextField = new JTextField(
+              model.getComputedValue(new Coord(x, furthestY)));
+        }
+        catch (IllegalArgumentException e ) {
+          tempTextField = new JTextField("#ERROR");
+        }
         tempTextField.setBorder(new LineBorder(Color.GRAY, 1));
         tempTextField.setEditable(false);
         tempTextField.setColumns(10);
@@ -245,8 +261,14 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
         tempJLabel.setBorder(new LineBorder(Color.GRAY, 1));
         visibleCells.get(i).add(tempJLabel);
       } else {
-        JTextField tempTextField = new JTextField(
-            model.getComputedValue(new Coord(furthestX, i)));
+        JTextField tempTextField;
+        try {
+          tempTextField = new JTextField(
+              model.getComputedValue(new Coord(furthestX, i)));
+        }
+        catch (IllegalArgumentException e ) {
+          tempTextField = new JTextField("#ERROR");
+        }
         tempTextField.setBorder(new LineBorder(Color.GRAY, 1));
         tempTextField.setEditable(false);
         tempTextField.setColumns(10);
@@ -274,8 +296,15 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
         tempJLabel.setBorder(new LineBorder(Color.GRAY, 1));
         visibleCells.get(i).add(1, tempJLabel);
       } else {
-        JTextField tempTextField = new JTextField(
-            model.getComputedValue(new Coord(furthestX - CELLSTOBESHOWNX + 1, i)));
+        JTextField tempTextField;
+        try {
+          tempTextField = new JTextField(
+              model.getComputedValue(new Coord(furthestX - CELLSTOBESHOWNX + 1, i)));
+        }
+        catch (IllegalArgumentException e ) {
+          tempTextField = new JTextField("#ERROR");
+        }
+
         tempTextField.setBorder(new LineBorder(Color.GRAY, 1));
         tempTextField.setEditable(false);
         tempTextField.setColumns(10);

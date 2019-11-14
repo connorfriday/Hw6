@@ -62,6 +62,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     fillCells();
     //add scroll buttons
     scrollButtons();
+    textPanel();
     displayCells();
   }
 
@@ -78,6 +79,15 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
       }
     }
     this.add(cellPanel);
+  }
+
+  private void textPanel() {
+    JTextField random = new JTextField("");
+    random.setEditable(false);
+    random.setColumns(50);
+    JPanel textPanel = new JPanel();
+    textPanel.add(random);
+    this.add(textPanel, BorderLayout.PAGE_START);
   }
 
   private void fillCells() {
@@ -141,14 +151,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     rightScroll.addActionListener(this);
     scrollPanel.add(rightScroll);
 
-    JTextField random = new JTextField("");
-    random.setEditable(false);
-    random.setColumns(50);
-    JPanel textPanel = new JPanel();
-    textPanel.add(random);
-    this.add(textPanel, BorderLayout.PAGE_START);
     this.add(scrollPanel, BorderLayout.PAGE_END);
-
   }
 
   @Override

@@ -89,7 +89,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     textPanel.add(random);
     this.add(textPanel, BorderLayout.PAGE_START);
   }
-//hi
+
   private void fillCells() {
 
     //add the first row, blank first square and A-Z for the rest

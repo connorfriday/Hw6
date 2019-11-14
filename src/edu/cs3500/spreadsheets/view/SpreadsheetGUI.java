@@ -156,6 +156,30 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     rightScroll.addActionListener(this);
     scrollPanel.add(rightScroll);
 
+    String pageUp = "↑↑";
+    JButton pageUpScroll = new JButton(pageUp);
+    pageUpScroll.setActionCommand("Page Up");
+    pageUpScroll.addActionListener(this);
+    scrollPanel.add(pageUpScroll);
+
+    String pageDown = "↓↓";
+    JButton pageDownScroll = new JButton(pageDown);
+    pageDownScroll.setActionCommand("Page Down");
+    pageDownScroll.addActionListener(this);
+    scrollPanel.add(pageDownScroll);
+
+    String pageLeft = "←←";
+    JButton pageLeftScroll = new JButton(pageLeft);
+    pageLeftScroll.setActionCommand("Page Left");
+    pageLeftScroll.addActionListener(this);
+    scrollPanel.add(pageLeftScroll);
+
+    String pageRight = "→→";
+    JButton pageRightScroll = new JButton(pageRight);
+    pageRightScroll.setActionCommand("Page Right");
+    pageRightScroll.addActionListener(this);
+    scrollPanel.add(pageRightScroll);
+
     this.add(scrollPanel, BorderLayout.PAGE_END);
   }
 
@@ -169,16 +193,28 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
 
     switch (e.getActionCommand()) {
       case "Up":
-        this.shiftUp();
+        shiftUp();
         break;
       case "Down":
-        this.shiftDown();
+        shiftDown();
         break;
       case "Left":
         shiftLeft();
         break;
       case "Right":
         shiftRight();
+        break;
+      case "Page Up":
+        pageUp();
+        break;
+      case "Page Down":
+        pageDown();
+        break;
+      case "Page Left":
+        pageLeft();
+        break;
+      case "Page Right":
+        pageRight();
         break;
     }
   }
@@ -313,5 +349,37 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     }
     displayCells();
     cellPanel.updateUI();
+  }
+
+  private void pageUp() {
+    int count = CELLSTOBESHOWNY;
+    while(furthestY > CELLSTOBESHOWNY && count > 0) {
+      this.shiftUp();
+      count--;
+    }
+  }
+
+  private void pageDown() {
+    int count = CELLSTOBESHOWNY;
+    while (count > 0) {
+      this.shiftDown();
+      count--;
+    }
+  }
+
+  private void pageLeft() {
+    int count = CELLSTOBESHOWNX;
+    while (furthestX > CELLSTOBESHOWNX && count > 0) {
+      this.shiftLeft();
+      count--;
+    }
+  }
+
+  private void pageRight() {
+    int count = CELLSTOBESHOWNX;
+    while (count > 0) {
+      this.shiftRight();
+      count--;
+    }
   }
 }

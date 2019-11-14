@@ -17,85 +17,12 @@ import java.io.PrintWriter;
  * The main class for our program.
  */
 public class BeyondGood {
+
   /**
-   * The main entry point.
-   * @param args any command-line arguments
+   * Our main method that runs our spreadsheet app.
+   * @param args that represent the file to be read from if any, the type of view to use,
+   *             and the destination file, if any
    */
-  public static void main2(String[] args) {
-    String expected = "Expected: -in filename -eval cellName";
-    if (args.length != 4) {
-      System.out.println("Expected 4 command-line arguments." + expected);
-      return;
-
-
-
-    }
-    if (!args[0].equals("-in") || !args[2].equals("-eval")) {
-      System.out.println("Improper command-line arguments." + expected);
-      return;
-    }
-
-    try {
-      Readable file = new FileReader(args[1]);
-
-      try {
-        BasicWorksheetBuilder builder = new BasicWorksheetBuilder();
-        BasicSpreadsheetModel model = WorksheetReader.read(builder, file);
-
-        String errors = builder.errorMessages.toString();
-        if (!errors.equals("")) {
-          System.out.print(errors);
-          return;
-        }
-        String s = args[3];
-        StringBuilder letters = new StringBuilder();
-        StringBuilder numbers = new StringBuilder();
-        boolean onLetters = true;
-
-        for (int i = 0; i < s.length(); i++) {
-          char c = s.charAt(i);
-          if (onLetters) {
-            if (Character.isLetter(c)) {
-              letters.append(c);
-            }
-            else if (Character.isDigit(c)) {
-              numbers.append(c);
-              onLetters = false;
-            }
-            else {
-              System.out.println("Malformed cellname. Cannot process");
-              return;
-            }
-          }
-          else if (Character.isDigit(c)) {
-            numbers.append(c);
-          }
-          else {
-            System.out.println("Malformed cellname. Cannot process");
-          }
-        }
-
-        int col = Coord.colNameToIndex(letters.toString());
-        int row = Integer.parseInt(numbers.toString());
-
-        try {
-          String result = model.getComputedValue(new Coord(col, row));
-          System.out.print(result);
-        }
-        catch (IllegalArgumentException e) {
-          System.out.println(e.getMessage());
-          return;
-        }
-      }
-      catch (IllegalStateException e) {
-        System.out.println("Given file is malformatted");
-      }
-    }
-    catch (FileNotFoundException e) {
-      System.out.println("File not found.");
-    }
-  }
-
   public static void main(String[] args) {
     try {
       if (args.length == 0) {
@@ -104,13 +31,16 @@ public class BeyondGood {
 
       SpreadsheetModel model;
       String primaryCommand = args[0];
+
       if (primaryCommand.equals("-in")) {
         model = buildModel(args);
-      } else if (primaryCommand.equals("-gui")) {
+      }
+      else if (primaryCommand.equals("-gui")) {
         model = new BasicSpreadsheetModel();
         gui(model);
         return;
-      } else {
+      }
+      else {
         throw new InvalidCommandException("Invalid first command.");
       }
 
@@ -138,6 +68,8 @@ public class BeyondGood {
   }
 
 
+  // given a model, creates a GUI view and renders the view
+  // throws an exception if unable to render
   private static void gui(SpreadsheetModel model) throws InvalidCommandException {
     try {
       SpreadsheetView view = new SpreadsheetGUI(model);
@@ -148,6 +80,8 @@ public class BeyondGood {
     }
   }
 
+  // writes the model to a given file using the textual view
+  // throws an exception with a detailed message if unable to do so
   private static void write(SpreadsheetModel model, String[] args) throws InvalidCommandException {
     if (args.length != 4) {
       throw new InvalidCommandException("Need 4 arguments to save to another file.");
@@ -166,6 +100,8 @@ public class BeyondGood {
     }
   }
 
+  // gets the computed value of a specified cell from the given model
+  // throws an exception with a detailed message if unable to do so
   private static String evaluate(SpreadsheetModel model, String[] args)
       throws InvalidCommandException {
     if (args.length != 4) {
@@ -180,6 +116,8 @@ public class BeyondGood {
     }
   }
 
+  // builds a model using the given arguments array by reading from a given file
+  // throws an exception with a detailed message if unable to do so
   private static SpreadsheetModel buildModel(String[] args) throws InvalidCommandException{
     try {
       if (args.length < 2) {
@@ -201,6 +139,7 @@ public class BeyondGood {
     }
   }
 
+  // a custom exception to handle any errors related to issuing commands to the application
   private static class InvalidCommandException extends Exception {
     InvalidCommandException(String message) {
       super(message);

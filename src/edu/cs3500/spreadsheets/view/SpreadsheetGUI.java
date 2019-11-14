@@ -47,6 +47,8 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
   private static int HBARMAX = 500;
   private static int VBARMAX = 500;
   private static int SCROLLINCREMENT = 1;
+  private static int WIDTH = 1500;
+  private static int HEIGHT = 1000;
 
   /**
    * Constructs a spreadsheet GUI.
@@ -57,7 +59,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     //construct model
     this.model = model;
     //set default size to 1000 x 1000
-    setSize(2000, 1000);
+    setSize(WIDTH, HEIGHT);
     //set default location to 0 0
     setLocation(0, 0);
     //set close frame to Exit on Close
@@ -160,6 +162,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
       }
     });
     hBar.setBackground(Color.BLACK);
+    hBar.setPreferredSize(new Dimension(WIDTH, 20));
     horizontalScroll.add(hBar);
     this.add(horizontalScroll, BorderLayout.PAGE_END);
 
@@ -183,6 +186,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
       }
     });
     vBar.setBackground(Color.BLACK);
+    vBar.setPreferredSize(new Dimension(20, HEIGHT));
     verticalScroll.add(vBar);
     this.add(verticalScroll, BorderLayout.LINE_END);
   }

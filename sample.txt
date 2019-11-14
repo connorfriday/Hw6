@@ -8,6 +8,7 @@ A18 lnaskjbsbfkjasbjkfbabkjfb
 A17 lnaskjbsbfkjasbjkfbabkjfb
 A16 lnaskjbsbfkjasbjkfbabkjfb
 A15 lnaskjbsbfkjasbjkfbabkjfb
+A20 =(SUMM)
 
 
 

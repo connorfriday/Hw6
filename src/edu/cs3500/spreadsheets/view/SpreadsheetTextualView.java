@@ -10,8 +10,8 @@ import java.io.IOException;
  */
 //todo test whole class
 public class SpreadsheetTextualView implements SpreadsheetView {
-  SpreadsheetModel model;
-  Appendable out;
+  private SpreadsheetModel model;
+  private Appendable out;
 
   /**
    * Constructs an instance of this textual view given a model and an output
@@ -29,6 +29,10 @@ public class SpreadsheetTextualView implements SpreadsheetView {
     this.out = out;
   }
 
+  /**
+   * Outputs a textual representation of the model.
+   * @throws IOException if the view is unable to read in or output
+   */
   @Override
   public void render() throws IOException {
     for (Coord c: model.getNonEmptyCoordinates()) {

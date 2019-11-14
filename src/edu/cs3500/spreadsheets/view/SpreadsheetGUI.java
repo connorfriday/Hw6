@@ -38,7 +38,6 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
   private int furthestX = CELLSTOBESHOWNX;
   private int furthestY = CELLSTOBESHOWNY;
   private List<List<JComponent>> visibleCells;
-  GridBagLayout layout = new GridBagLayout();
   private JPanel cellPanel;
 
 
@@ -48,24 +47,35 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
    * @param model Spreadsheet model to view
    */
   public SpreadsheetGUI(SpreadsheetModel model) {
+    //construct model
     this.model = model;
+    //set default size to 1000 x 1000
     setSize(1000, 1000);
+    //set default location to 0 0
     setLocation(0, 0);
+    //set close frame to Exit on Close
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //allow min size to be 500 x 500
     this.setMinimumSize(new Dimension(500, 500));
+    //use a border layout for the overall frame
     this.setLayout(new BorderLayout());
+
+    //set the cellPanel's layout to a GridBagLayout
+    GridBagLayout layout = new GridBagLayout();
     cellPanel = new JPanel(layout);
 
+    //Initialize visibleCells
     visibleCells = new ArrayList<>();
 
-    //add all of the components onto the JFrame
+    // add all of the components onto the JFrame
     fillCells();
-    //add scroll buttons
+    // add scroll buttons
     scrollButtons();
-    // textPanel();
+    // display the cells
     displayCells();
   }
 
+  //displays cells with specific formatting for grid bag layout
   private void displayCells() {
     GridBagConstraints c = new GridBagConstraints();
     c.fill = GridBagConstraints.BOTH;
@@ -78,18 +88,12 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
         this.cellPanel.add(visibleCells.get(i).get(j), c);
       }
     }
+    //add the panel full of cells to this frame
     this.add(cellPanel);
   }
 
-  private void textPanel() {
-    JTextField random = new JTextField("");
-    random.setEditable(false);
-    random.setColumns(50);
-    JPanel textPanel = new JPanel();
-    textPanel.add(random);
-    this.add(textPanel, BorderLayout.PAGE_START);
-  }
 
+  //fill the cells with values
   private void fillCells() {
 
     //add the first row, blank first square and A-Z for the rest
@@ -128,6 +132,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     }
   }
 
+  //add the scroll buttons to this frame
   private void scrollButtons() {
 
     JPanel scrollPanel = new JPanel(new FlowLayout());
@@ -159,11 +164,16 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     this.add(scrollPanel, BorderLayout.PAGE_END);
   }
 
+  /**
+   * Renders the GUI.
+   * @throws IOException if an output issue occurs
+   */
   @Override
   public void render() throws IOException {
     setVisible(true);
   }
 
+  //perform certain actions based on shown buttons
   @Override
   public void actionPerformed(ActionEvent e) {
 
@@ -183,6 +193,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     }
   }
 
+  //scroll up
   private void shiftUp() {
     if (furthestY <= CELLSTOBESHOWNY) {
       return;
@@ -216,6 +227,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     cellPanel.updateUI();
   }
 
+  //scroll down
   private void shiftDown() {
     cellPanel.removeAll();
     visibleCells.remove(1);
@@ -247,6 +259,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     cellPanel.updateUI();
   }
 
+  //scroll right
   private void shiftRight() {
     cellPanel.removeAll();
     this.furthestX++;
@@ -279,6 +292,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView, ActionLis
     cellPanel.updateUI();
   }
 
+  //scroll left
   private void shiftLeft() {
     if (furthestX <= CELLSTOBESHOWNX) {
       return;

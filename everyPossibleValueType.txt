@@ -1,0 +1,4 @@
+A1 true
+A2 false
+A3 1
+A4 cat

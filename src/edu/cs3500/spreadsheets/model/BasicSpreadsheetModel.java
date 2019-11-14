@@ -38,8 +38,10 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
     if (s.isEmpty()) {
       return;
     }
+    boolean hasEquals = false;
     if (s.charAt(0) == '=') {
       s = s.substring(1);
+      hasEquals = true;
     }
     try {
       Parser.parse(s);
@@ -51,6 +53,10 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
 
     if (getAllReferences(s).contains(coord)) {
       throw new IllegalArgumentException("This update will create a cycle");
+    }
+
+    if (hasEquals) {
+      s = "=" + s;
     }
 
     if (!cells.containsKey(coord)) {
@@ -113,6 +119,9 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
   }
 
   private String parseAndEvaluate(String s) {
+    if (s.substring(0, 1).equals("=")) {
+      s = s.substring(1);
+    }
     return Parser.parse(s).accept(
         new EvaluateSexp(functions, this, null));
   }

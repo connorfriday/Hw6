@@ -27,8 +27,8 @@ import javax.swing.border.LineBorder;
 public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
 
   private SpreadsheetModel model;
-  private static int CELLSTOBESHOWNX = 20;
-  private static int CELLSTOBESHOWNY = 40;
+  private static int CELLSTOBESHOWNX = 15;
+  private static int CELLSTOBESHOWNY = 30;
   private static int furthestX = CELLSTOBESHOWNX;
   private static int furthestY = CELLSTOBESHOWNY;
   private List<List<JComponent>> visibleCells;
@@ -54,7 +54,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     //set close frame to Exit on Close
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     //allow min size to be 500 x 500
-    this.setMinimumSize(new Dimension(500, 500));
+    this.setMinimumSize(new Dimension(WIDTH * 3 / 4, HEIGHT * 3 / 4));
     //use a border layout for the overall frame
     this.setLayout(new BorderLayout());
 
@@ -151,7 +151,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
       }
     });
     hBar.setBackground(Color.BLACK);
-    hBar.setPreferredSize(new Dimension(WIDTH, 20));
+    hBar.setPreferredSize(new Dimension(WIDTH * 3 / 4, 20));
     horizontalScroll.add(hBar);
     this.add(horizontalScroll, BorderLayout.PAGE_END);
 
@@ -182,10 +182,9 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
 
   /**
    * Renders the GUI.
-   * @throws IOException if an output issue occurs
    */
   @Override
-  public void render() throws IOException {
+  public void render() {
     setVisible(true);
   }
 }

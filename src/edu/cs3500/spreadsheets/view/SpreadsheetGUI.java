@@ -136,7 +136,6 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
       @Override
       public void adjustmentValueChanged(AdjustmentEvent e) {
         horizontalScroll(e, hBar); }});
-
     hBar.setBackground(Color.BLACK);
     hBar.setPreferredSize(new Dimension(WIDTH * 3 / 4, 20));
     horizontalScroll.add(hBar);
@@ -149,7 +148,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
       @Override
       public void adjustmentValueChanged(AdjustmentEvent e) {
         verticalScroll(e, vBar);
-      }
+       }
     });
     vBar.setBackground(Color.BLACK);
     vBar.setPreferredSize(new Dimension(20, HEIGHT));

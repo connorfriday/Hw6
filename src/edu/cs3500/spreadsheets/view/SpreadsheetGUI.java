@@ -9,7 +9,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
@@ -87,7 +86,6 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     this.add(cellPanel);
   }
 
-
   //fill the cells with values
   private void fillCells() {
     visibleCells = new ArrayList<>();
@@ -137,19 +135,8 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     hBar.addAdjustmentListener(new AdjustmentListener() {
       @Override
       public void adjustmentValueChanged(AdjustmentEvent e) {
-        if (hBar.getValueIsAdjusting()) {
-          if (hBar.getValue() == hBar.getMaximum() - 1) {
-            hBar.setMaximum(HBARMAX + 100);
-            HBARMAX = HBARMAX + 100;
-          }
-          furthestX = e.getValue();
-          cellPanel.removeAll();
-          fillCells();
-          displayCells();
-          cellPanel.updateUI();
-        }
-      }
-    });
+        horizontalScroll(e, hBar); }});
+
     hBar.setBackground(Color.BLACK);
     hBar.setPreferredSize(new Dimension(WIDTH * 3 / 4, 20));
     horizontalScroll.add(hBar);
@@ -161,23 +148,43 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     vBar.addAdjustmentListener(new AdjustmentListener() {
       @Override
       public void adjustmentValueChanged(AdjustmentEvent e) {
-        if (vBar.getValueIsAdjusting()) {
-          if (vBar.getValue() == vBar.getMaximum() - 1) {
-            vBar.setMaximum(VBARMAX + 100);
-            VBARMAX = VBARMAX + 100;
-          }
-          furthestY = e.getValue();
-          cellPanel.removeAll();
-          fillCells();
-          displayCells();
-          cellPanel.updateUI();
-        }
+        verticalScroll(e, vBar);
       }
     });
     vBar.setBackground(Color.BLACK);
     vBar.setPreferredSize(new Dimension(20, HEIGHT));
     verticalScroll.add(vBar);
     this.add(verticalScroll, BorderLayout.LINE_END);
+  }
+
+  //helper to scroll vertical bar
+  private void verticalScroll(AdjustmentEvent e, JScrollBar vBar) {
+    if (vBar.getValueIsAdjusting()) {
+      if (vBar.getValue() == vBar.getMaximum() - 1) {
+        vBar.setMaximum(VBARMAX + 100);
+        VBARMAX = VBARMAX + 100;
+      }
+      furthestY = e.getValue();
+      cellPanel.removeAll();
+      fillCells();
+      displayCells();
+      cellPanel.updateUI();
+    }
+  }
+
+  //helper to scroll horizontal bar
+  private void horizontalScroll(AdjustmentEvent e, JScrollBar hBar) {
+    if (hBar.getValueIsAdjusting()) {
+      if (hBar.getValue() == hBar.getMaximum() - 1) {
+        hBar.setMaximum(HBARMAX + 100);
+        HBARMAX = HBARMAX + 100;
+      }
+      furthestX = e.getValue();
+      cellPanel.removeAll();
+      fillCells();
+      displayCells();
+      cellPanel.updateUI();
+    }
   }
 
   /**

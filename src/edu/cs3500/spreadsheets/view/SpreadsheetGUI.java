@@ -48,7 +48,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
   private static int VBARMAX = 500;
   private static int SCROLLINCREMENT = 1;
 
-
+//hi
   /**
    * Constructs a spreadsheet GUI.
    *

@@ -9,7 +9,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
@@ -87,7 +86,6 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     this.add(cellPanel);
   }
 
-
   //fill the cells with values
   private void fillCells() {
     visibleCells = new ArrayList<>();
@@ -159,6 +157,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     this.add(verticalScroll, BorderLayout.LINE_END);
   }
 
+  //helper to scroll vertical bar
   private void verticalScroll(AdjustmentEvent e, JScrollBar vBar) {
     if (vBar.getValueIsAdjusting()) {
       if (vBar.getValue() == vBar.getMaximum() - 1) {
@@ -173,6 +172,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     }
   }
 
+  //helper to scroll horizontal bar
   private void horizontalScroll(AdjustmentEvent e, JScrollBar hBar) {
     if (hBar.getValueIsAdjusting()) {
       if (hBar.getValue() == hBar.getMaximum() - 1) {

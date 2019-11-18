@@ -57,45 +57,19 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     //use a border layout for the overall frame
     this.setLayout(new BorderLayout());
 
-    //set the cellPanel's layout to a GridBagLayout
-    GridBagLayout layout = new GridBagLayout();
-    cellPanel = new JPanel(layout);
 
-    // add all of the components onto the JFrame
-    fillCells();
-    // add scroll buttons
-    scrollButtons();
-    // display the cells
-    displayCells();
-  }
+    cellPanel = new CellPanel(model);
 
-  //displays cells with specific formatting for grid bag layout
-  private void displayCells() {
-    GridBagConstraints c = new GridBagConstraints();
-    c.fill = GridBagConstraints.BOTH;
-    c.weightx = 1;
-    c.weighty = 1;
-    for (int i = 0; i < visibleCells.size(); i++) {
-      for (int j = 0; j < visibleCells.get(i).size(); j++) {
-        c.gridx = j;
-        c.gridy = i;
-        this.cellPanel.add(visibleCells.get(i).get(j), c);
-      }
-    }
-    //add the panel full of cells to this frame
     this.add(cellPanel);
+
   }
-
-
-
-
-
 
   /**
    * Renders the GUI.
    */
   @Override
   public void render() {
+    cellPanel.setVisible(true);
     setVisible(true);
   }
 }

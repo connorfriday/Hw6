@@ -41,6 +41,8 @@ import javax.swing.border.LineBorder;
     this.model = model;
     this.cellsToBeShownX = cellsToBeShownX;
     this.cellsToBeShownY = cellsToBeShownY;
+    furthestX = this.cellsToBeShownX;
+    furthestY = this.cellsToBeShownY;
     this.width = width;
     this.height = height;
 
@@ -49,7 +51,6 @@ import javax.swing.border.LineBorder;
     this.setMinimumSize(new Dimension(width * 3 / 4, height * 3 / 4));
     //use a border layout for the overall frame
     this.setLayout(new BorderLayout());
-
     this.model = model;
     GridBagLayout layout = new GridBagLayout();
     JPanel grid = new JPanel(layout);

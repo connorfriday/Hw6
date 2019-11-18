@@ -188,6 +188,9 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     }
   }
 
+
+
+
   /**
    * Renders the GUI.
    */

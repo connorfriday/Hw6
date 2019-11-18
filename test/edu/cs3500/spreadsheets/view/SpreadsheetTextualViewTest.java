@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.view;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import edu.cs3500.spreadsheets.model.BasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.Coord;
@@ -13,9 +14,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Set;
-import java.util.logging.FileHandler;
 import org.junit.Test;
 
+/**
+ * The test suite for the SpreadsheetTextualView class.
+ */
 public class SpreadsheetTextualViewTest {
 
   @Test

@@ -3,7 +3,6 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Hw6_jar</output-path>
     <root id="archive" name="Hw6.jar">
       <element id="module-output" name="Hw6" />
-      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/groovy-all-2.4.17.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

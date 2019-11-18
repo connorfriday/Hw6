@@ -14,7 +14,7 @@ public class SpreadsheetTextualView implements SpreadsheetView {
   private Appendable out;
 
   /**
-   * Constructs an instance of this textual view given a model and an output
+   * Constructs an instance of this textual view given a model and an output.
    * @param model The spreadsheet we are trying to view
    * @param out The place to output the representation of the model
    */

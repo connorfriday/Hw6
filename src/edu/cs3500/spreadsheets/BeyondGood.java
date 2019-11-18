@@ -48,6 +48,7 @@ public class BeyondGood {
         switch (args[2]) {
           case "-eval":
             System.out.print(evaluate(model, args));
+            return;
           case "-save":
             write(model, args);
             return;
@@ -118,7 +119,7 @@ public class BeyondGood {
 
   // builds a model using the given arguments array by reading from a given file
   // throws an exception with a detailed message if unable to do so
-  private static SpreadsheetModel buildModel(String[] args) throws InvalidCommandException{
+  private static SpreadsheetModel buildModel(String[] args) throws InvalidCommandException {
     try {
       if (args.length < 2) {
         throw new InvalidCommandException("Expected at least 2 arguments.");

@@ -17,11 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JScrollBar;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 /**
- * Represents a scrollable GUI to view a Spreadsheet
+ * Represents a scrollable GUI to view a Spreadsheet.
  */
 public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
 
@@ -135,7 +135,9 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     hBar.addAdjustmentListener(new AdjustmentListener() {
       @Override
       public void adjustmentValueChanged(AdjustmentEvent e) {
-        horizontalScroll(e, hBar); }});
+        horizontalScroll(e, hBar);
+      }
+    });
     hBar.setBackground(Color.BLACK);
     hBar.setPreferredSize(new Dimension(WIDTH * 3 / 4, 20));
     horizontalScroll.add(hBar);
@@ -148,7 +150,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
       @Override
       public void adjustmentValueChanged(AdjustmentEvent e) {
         verticalScroll(e, vBar);
-       }
+      }
     });
     vBar.setBackground(Color.BLACK);
     vBar.setPreferredSize(new Dimension(20, HEIGHT));

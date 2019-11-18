@@ -57,11 +57,8 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     //use a border layout for the overall frame
     this.setLayout(new BorderLayout());
 
-
     cellPanel = new CellPanel(model);
-
     this.add(cellPanel);
-
   }
 
   /**

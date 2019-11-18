@@ -23,27 +23,29 @@ import javax.swing.border.LineBorder;
  class CellPanel extends JPanel {
 
   private SpreadsheetModel model;
-  private static int CELLSTOBESHOWNX = 15;
-  private static int CELLSTOBESHOWNY = 30;
-  private static int furthestX = CELLSTOBESHOWNX;
-  private static int furthestY = CELLSTOBESHOWNY;
+  private int cellsToBeShownX;
+  private int cellsToBeShownY;
+  private int furthestX;
+  private int furthestY;
   private List<List<JComponent>> visibleCells;
   private JPanel cellPanel;
   private static int HBARMAX = 500;
   private static int VBARMAX = 500;
   private static int SCROLLINCREMENT = 1;
-  private static int WIDTH = 1500;
-  private static int HEIGHT = 1000;
+  private int width;
+  private int height;
 
-  CellPanel(SpreadsheetModel model) {
+  CellPanel(SpreadsheetModel model, int cellsToBeShownX, int cellsToBeShownY, int width, int height) {
     super();
     this.model = model;
-    //set default size to 1000 x 1000
-    setSize(WIDTH, HEIGHT);
-    //set default location to 0 0
+    this.cellsToBeShownX = cellsToBeShownX;
+    this.cellsToBeShownY = cellsToBeShownY;
+    this.width = width;
+    this.height = height;
+
+    setSize(width, height);
     setLocation(0, 0);
-    //allow min size to be 500 x 500
-    this.setMinimumSize(new Dimension(WIDTH * 3 / 4, HEIGHT * 3 / 4));
+    this.setMinimumSize(new Dimension(width * 3 / 4, height * 3 / 4));
     //use a border layout for the overall frame
     this.setLayout(new BorderLayout());
 
@@ -54,11 +56,8 @@ import javax.swing.border.LineBorder;
     visibleCells = new ArrayList<>();
 
     fillCells();
-
     scrollButtons();
-
     displayCells();
-
   }
 
   //displays cells with specific formatting for grid bag layout
@@ -86,7 +85,7 @@ import javax.swing.border.LineBorder;
     //add the first row, blank first square and A-Z for the rest
     List<JComponent> tempList = new ArrayList<>();
     tempList.add(new JLabel(""));
-    for (int x = furthestX - CELLSTOBESHOWNX + 1; x <= furthestX; x++) {
+    for (int x = furthestX - cellsToBeShownX + 1; x <= furthestX; x++) {
       JLabel tempJLabel = new JLabel(Coord.colIndexToName(x), SwingConstants.CENTER);
       tempJLabel.setBorder(new LineBorder(Color.GRAY, 1));
       tempList.add(tempJLabel);
@@ -94,11 +93,11 @@ import javax.swing.border.LineBorder;
     visibleCells.add(tempList);
 
     //add the rest of the rows, row number and then the cells
-    for (int y = furthestY - CELLSTOBESHOWNY + 1; y <= furthestY; y++) {
+    for (int y = furthestY - cellsToBeShownY + 1; y <= furthestY; y++) {
       tempList = new ArrayList<>();
 
-      for (int x = furthestX - this.CELLSTOBESHOWNX; x <= furthestX; x++) {
-        if (x == furthestX - this.CELLSTOBESHOWNX) {
+      for (int x = furthestX - this.cellsToBeShownX; x <= furthestX; x++) {
+        if (x == furthestX - this.cellsToBeShownX) {
           JLabel tempJLabel = new JLabel(Integer.toString(y), SwingConstants.CENTER);
           tempJLabel.setBorder(new LineBorder(Color.GRAY, 1));
           tempList.add(tempJLabel);
@@ -123,8 +122,8 @@ import javax.swing.border.LineBorder;
   private void scrollButtons() {
 
     JPanel horizontalScroll = new JPanel();
-    JScrollBar hBar = new JScrollBar(JScrollBar.HORIZONTAL, CELLSTOBESHOWNX,
-        SCROLLINCREMENT, CELLSTOBESHOWNX, HBARMAX);
+    JScrollBar hBar = new JScrollBar(JScrollBar.HORIZONTAL, cellsToBeShownX,
+        SCROLLINCREMENT, cellsToBeShownX, HBARMAX);
     hBar.addAdjustmentListener(new AdjustmentListener() {
       @Override
       public void adjustmentValueChanged(AdjustmentEvent e) {
@@ -132,13 +131,13 @@ import javax.swing.border.LineBorder;
       }
     });
     hBar.setBackground(Color.BLACK);
-    hBar.setPreferredSize(new Dimension(WIDTH * 3 / 4, 20));
+    hBar.setPreferredSize(new Dimension(width * 3 / 4, 20));
     horizontalScroll.add(hBar);
     this.add(horizontalScroll, BorderLayout.PAGE_END);
 
     JPanel verticalScroll = new JPanel();
-    JScrollBar vBar = new JScrollBar(JScrollBar.VERTICAL, CELLSTOBESHOWNY,
-        SCROLLINCREMENT, CELLSTOBESHOWNY, VBARMAX);
+    JScrollBar vBar = new JScrollBar(JScrollBar.VERTICAL, cellsToBeShownY,
+        SCROLLINCREMENT, cellsToBeShownY, VBARMAX);
     vBar.addAdjustmentListener(new AdjustmentListener() {
       @Override
       public void adjustmentValueChanged(AdjustmentEvent e) {
@@ -146,7 +145,7 @@ import javax.swing.border.LineBorder;
       }
     });
     vBar.setBackground(Color.BLACK);
-    vBar.setPreferredSize(new Dimension(20, HEIGHT));
+    vBar.setPreferredSize(new Dimension(20, height));
     verticalScroll.add(vBar);
     this.add(verticalScroll, BorderLayout.LINE_END);
   }

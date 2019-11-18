@@ -5,18 +5,19 @@ import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import java.io.IOException;
 
 /**
- * This is a textual view for a spreadsheet model.
- * Represents non-empty cells in the format (cell name) (contents) \n
+ * This is a textual view for a spreadsheet model. Represents non-empty cells in the format (cell
+ * name) (contents) \n
  */
-//todo test whole class
 public class SpreadsheetTextualView implements SpreadsheetView {
+
   private SpreadsheetModel model;
   private Appendable out;
 
   /**
-   * Constructs an instance of this textual view given a model and an output.
+   * Constructs an instance of this textual view given a model and an output
+   *
    * @param model The spreadsheet we are trying to view
-   * @param out The place to output the representation of the model
+   * @param out   The place to output the representation of the model
    */
   public SpreadsheetTextualView(SpreadsheetModel model, Appendable out) {
     if (model == null) {
@@ -31,11 +32,12 @@ public class SpreadsheetTextualView implements SpreadsheetView {
 
   /**
    * Outputs a textual representation of the model.
+   *
    * @throws IOException if the view is unable to read in or output
    */
   @Override
   public void render() throws IOException {
-    for (Coord c: model.getNonEmptyCoordinates()) {
+    for (Coord c : model.getNonEmptyCoordinates()) {
       out.append(c.toString() + " " + model.getRawValue(c) + "\n");
     }
   }

@@ -35,6 +35,7 @@ import javax.swing.border.LineBorder;
   private int width;
   private int height;
 
+
   CellPanel(SpreadsheetModel model, int cellsToBeShownX, int cellsToBeShownY, int width, int height) {
     super();
     this.model = model;

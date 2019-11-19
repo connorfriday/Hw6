@@ -5,6 +5,7 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.BasicWorksheetBuilder;
+import edu.cs3500.spreadsheets.view.SpreadsheetEditableGUI;
 import edu.cs3500.spreadsheets.view.SpreadsheetGUI;
 import edu.cs3500.spreadsheets.view.SpreadsheetTextualView;
 import edu.cs3500.spreadsheets.view.SpreadsheetView;
@@ -40,6 +41,11 @@ public class BeyondGood {
         gui(model);
         return;
       }
+      else if (primaryCommand.equals("-edit")) {
+        model = new BasicSpreadsheetModel();
+        edit(model);
+        return;
+      }
       else {
         throw new InvalidCommandException("Invalid first command.");
       }
@@ -55,6 +61,9 @@ public class BeyondGood {
           case "-gui":
             gui(model);
             return;
+          case "-edit":
+            edit(model);
+            return;
           default:
             throw new InvalidCommandException("Unrecognized command. Supports -eval, -save, -gui");
         }
@@ -65,6 +74,16 @@ public class BeyondGood {
     }
     catch (InvalidCommandException e) {
       System.out.print(e.getMessage());
+    }
+  }
+
+  private static void edit(SpreadsheetModel model) throws InvalidCommandException {
+    try {
+      SpreadsheetView view = new SpreadsheetEditableGUI(model);
+      view.render();
+    }
+    catch (IOException e) {
+      throw new InvalidCommandException("Issue to read from input or write to output");
     }
   }
 

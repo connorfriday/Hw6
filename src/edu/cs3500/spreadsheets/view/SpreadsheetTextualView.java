@@ -2,6 +2,7 @@ package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /**
@@ -40,5 +41,20 @@ public class SpreadsheetTextualView implements SpreadsheetView {
     for (Coord c : model.getNonEmptyCoordinates()) {
       out.append(c.toString() + " " + model.getRawValue(c) + "\n");
     }
+  }
+
+  @Override
+  public String getInputString() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public Coord getCurrentCell() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void setActionListener(ActionListener a) {
+    throw new UnsupportedOperationException();
   }
 }

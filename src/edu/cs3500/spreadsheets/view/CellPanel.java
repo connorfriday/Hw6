@@ -9,6 +9,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
@@ -34,7 +36,7 @@ import javax.swing.border.LineBorder;
   private static int SCROLLINCREMENT = 1;
   private int width;
   private int height;
-
+  private Coord currentCell;
 
   CellPanel(SpreadsheetModel model, int cellsToBeShownX, int cellsToBeShownY, int width, int height) {
     super();
@@ -107,6 +109,18 @@ import javax.swing.border.LineBorder;
           JTextField tempTextField;
           try {
             tempTextField = new JTextField(model.getComputedValue(new Coord(x, y)));
+            int finalX = x;
+            int finalY = y;
+            tempTextField.addMouseListener(new MouseAdapter() {
+
+              private int xCoord = finalX;
+              private int yCoord = finalY;
+            @Override
+            public void mouseClicked(MouseEvent e) {
+              currentCell = new Coord(finalX, finalY);
+            }
+
+            });
           } catch (IllegalArgumentException e) {
             tempTextField = new JTextField("#ERROR");
           }
@@ -182,4 +196,7 @@ import javax.swing.border.LineBorder;
     }
   }
 
+  public Coord getCurrentCell() {
+    return this.currentCell;
+  }
 }

@@ -57,7 +57,7 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
       @Override
       public void actionPerformed(ActionEvent e) {
         features.updateCellValue(currentCell, entryField.getText());
-        cellPanel.repaintCell(currentCell);
+        cellPanel.repaintCell();
       }
     });
     editPanel.add(commitChange);

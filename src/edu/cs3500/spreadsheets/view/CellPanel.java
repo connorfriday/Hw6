@@ -206,17 +206,13 @@ class CellPanel extends JPanel {
     }
   }
 
-  void repaintCell(Coord coord) {
-    // safe cast as we know that Coord values cannot be < 1 and all JComponents
-    // in visible cells with both coordinates >= 1 are JTextfields
-    JTextField field = (JTextField) visibleCells.get(coord.row + cellsToBeShownY - furthestY).get(
-        coord.col + cellsToBeShownX - furthestX);
-    try {
-      field.setText(model.getComputedValue(coord));
-    } catch (IllegalArgumentException e) {
-      field.setText("#Error");
-    }
-    field.updateUI();
+  void repaintCell() {
+
+    cellPanel.removeAll();
+    fillCells();
+    displayCells();
+    cellPanel.updateUI();
+    changeFocus(focus);
   }
 
   private void changeFocus(Coord finalC) {

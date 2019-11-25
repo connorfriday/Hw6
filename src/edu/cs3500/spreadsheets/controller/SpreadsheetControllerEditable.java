@@ -44,6 +44,7 @@ public class SpreadsheetControllerEditable implements SpreadsheetController {
     try {
       SpreadsheetModel model =
           WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader(sourceFile));
+      this.start(model);
     }
     catch (IOException e) {
       view.displayMessage("Unable to load file: " + sourceFile);

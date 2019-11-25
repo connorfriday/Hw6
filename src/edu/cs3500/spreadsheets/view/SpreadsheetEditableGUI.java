@@ -4,13 +4,18 @@ import edu.cs3500.spreadsheets.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class SpreadsheetEditableGUI extends SpreadsheetGUI {
   private SpreadsheetModel model;
@@ -35,15 +40,18 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
 
     this.currentCell = new Coord(1, 1);
 
+
   }
+
 
   private void editPanel() {
 
     editPanel = new JPanel();
     editPanel.setFocusable(false);
 
+    editPanel.add(this.optionsButton());
+
     commitChange = new JButton(Character.toString((char) 10003));
-    commitChange.setFocusable(false);
     commitChange.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -70,6 +78,36 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
     editPanel.add(entryField);
 
     this.add(editPanel, BorderLayout.PAGE_START);
+  }
+
+  private JButton optionsButton() {
+    JButton optionsButton = new JButton("Options");
+    optionsButton.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        String[] options = {"Save File", "Load File"};
+        int choice = JOptionPane.showOptionDialog(SpreadsheetEditableGUI.this,
+            "", "Options", JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+
+        if(choice == 0) {
+          String file =  JOptionPane.showInputDialog(SpreadsheetEditableGUI.this, "Save As:", "Save",
+              JOptionPane.QUESTION_MESSAGE, null, null, ".txt").toString();
+
+          SpreadsheetEditableGUI.this.features.saveFile(file);
+        }
+        if(choice == 1) {
+          JFileChooser chooser = new JFileChooser();
+          int returnVal = chooser.showOpenDialog(SpreadsheetEditableGUI.this);
+          if(returnVal == JFileChooser.APPROVE_OPTION) {
+            SpreadsheetEditableGUI.this.features.loadFile(chooser.getSelectedFile().getName());
+          }
+        }
+
+      }
+    });
+    return optionsButton;
   }
 
   @Override

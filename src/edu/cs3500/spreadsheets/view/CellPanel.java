@@ -255,8 +255,8 @@ class CellPanel extends JPanel {
     }
 
     if (focus != null &&
-        focus.row < furthestY && focus.row > furthestY - cellsToBeShownY &&
-        focus.col < furthestX && focus.col > furthestX - cellsToBeShownX) {
+        focus.row <= furthestY && focus.row > furthestY - cellsToBeShownY &&
+        focus.col <= furthestX && focus.col > furthestX - cellsToBeShownX) {
       JComponent c = visibleCells.get(focus.row + cellsToBeShownY - furthestY).get(
           focus.col + cellsToBeShownX - furthestX);
       c.setBackground(Color.WHITE);

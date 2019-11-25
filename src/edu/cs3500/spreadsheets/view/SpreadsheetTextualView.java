@@ -3,6 +3,7 @@ package edu.cs3500.spreadsheets.view;
 import edu.cs3500.spreadsheets.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
+import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
@@ -12,7 +13,7 @@ import java.io.IOException;
  */
 public class SpreadsheetTextualView implements SpreadsheetView {
 
-  private SpreadsheetModel model;
+  private SpreadsheetReadOnlyModel model;
   private Appendable out;
 
   /**
@@ -21,7 +22,7 @@ public class SpreadsheetTextualView implements SpreadsheetView {
    * @param model The spreadsheet we are trying to view
    * @param out   The place to output the representation of the model
    */
-  public SpreadsheetTextualView(SpreadsheetModel model, Appendable out) {
+  public SpreadsheetTextualView(SpreadsheetReadOnlyModel model, Appendable out) {
     if (model == null) {
       throw new IllegalArgumentException("Model cannot be null");
     }

@@ -3,11 +3,14 @@ package edu.cs3500.spreadsheets.view;
 import edu.cs3500.spreadsheets.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
+import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -16,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class SpreadsheetEditableGUI extends SpreadsheetGUI {
+  private SpreadsheetReadOnlyModel model;
   private Features features;
   private JButton commitChange;
   private JButton cancelChange;
@@ -28,35 +32,49 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
    *
    * @param model Spreadsheet model to view
    */
-  public SpreadsheetEditableGUI(SpreadsheetModel model) {
+  public SpreadsheetEditableGUI(SpreadsheetReadOnlyModel model) {
     super(model);
+
+    this.model = model;
 
     editPanel();
 
     this.currentCell = new Coord(1, 1);
+
+
   }
 
 
   private void editPanel() {
+
     editPanel = new JPanel();
+    editPanel.setFocusable(false);
 
     editPanel.add(this.optionsButton());
 
     commitChange = new JButton(Character.toString((char) 10003));
-    commitChange.addActionListener(e -> {
-      features.updateCellValue(currentCell, entryField.getText());
-      cellPanel.repaintCell(currentCell);
+    commitChange.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        features.updateCellValue(currentCell, entryField.getText());
+        cellPanel.repaintCell(currentCell);
+      }
     });
     editPanel.add(commitChange);
 
     cancelChange = new JButton("X");
-    cancelChange.addActionListener(e -> {
-      entryField.setText(model.getRawValue(currentCell));
-      entryField.updateUI();
+    cancelChange.setFocusable(false);
+    cancelChange.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        entryField.setText(model.getRawValue(currentCell));
+        entryField.updateUI();
+      }
     });
     editPanel.add(cancelChange);
 
     entryField = new JTextField();
+    //entryField.setFocusable(false);
     entryField.setPreferredSize(new Dimension(WIDTH / 2, 20));
     editPanel.add(entryField);
 

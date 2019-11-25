@@ -1,7 +1,9 @@
 package edu.cs3500.spreadsheets.controller;
 
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.ReadOnlyBasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
+import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.BasicWorksheetBuilder;
 import edu.cs3500.spreadsheets.view.SpreadsheetEditableGUI;
@@ -14,12 +16,14 @@ import java.io.PrintWriter;
 
 public class SpreadsheetControllerEditable implements SpreadsheetController {
   private SpreadsheetModel model;
+  private SpreadsheetReadOnlyModel rom;
   private SpreadsheetView view;
 
   @Override
   public void start(SpreadsheetModel model) {
     this.model = model;
-    this.view = new SpreadsheetEditableGUI(model);
+    this.rom = new ReadOnlyBasicSpreadsheetModel(model);
+    this.view = new SpreadsheetEditableGUI(rom);
     view.setFeatures(this);
     try {
       view.render();
@@ -55,7 +59,7 @@ public class SpreadsheetControllerEditable implements SpreadsheetController {
   public void saveFile(String destinationFile) {
     try {
       PrintWriter writer = new PrintWriter(destinationFile);
-      SpreadsheetView view = new SpreadsheetTextualView(model, writer);
+      SpreadsheetView view = new SpreadsheetTextualView(rom, writer);
       view.render();
       writer.close();
     }

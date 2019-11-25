@@ -4,6 +4,7 @@ import edu.cs3500.spreadsheets.controller.SpreadsheetController;
 import edu.cs3500.spreadsheets.controller.SpreadsheetControllerEditable;
 import edu.cs3500.spreadsheets.model.BasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.ReadOnlyBasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.BasicWorksheetBuilder;
@@ -88,7 +89,7 @@ public class BeyondGood {
   // throws an exception if unable to render
   private static void gui(SpreadsheetModel model) throws InvalidCommandException {
     try {
-      SpreadsheetView view = new SpreadsheetGUI(model);
+      SpreadsheetView view = new SpreadsheetGUI(new ReadOnlyBasicSpreadsheetModel(model));
       view.render();
     }
     catch (IOException e) {
@@ -104,7 +105,8 @@ public class BeyondGood {
     }
     try {
       PrintWriter writer = new PrintWriter(args[3]);
-      SpreadsheetView view = new SpreadsheetTextualView(model, writer);
+      SpreadsheetView view = new SpreadsheetTextualView(new ReadOnlyBasicSpreadsheetModel(model),
+          writer);
       view.render();
       writer.close();
     }

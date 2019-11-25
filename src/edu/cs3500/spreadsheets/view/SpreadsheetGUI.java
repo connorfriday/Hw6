@@ -5,19 +5,24 @@ import edu.cs3500.spreadsheets.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * Represents a scrollable GUI to view a Spreadsheet.
  */
 public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
-  protected SpreadsheetModel model;
+  private SpreadsheetModel model;
   static int CELLSTOBESHOWNX = 15;
   static int CELLSTOBESHOWNY = 30;
   static int WIDTH = 1500;
   static int HEIGHT = 1000;
   CellPanel cellPanel;
-
+  Coord currentCell;
 
   /**
    * Constructs a spreadsheet GUI.
@@ -38,6 +43,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     cellPanel = new CellPanel(model, this, CELLSTOBESHOWNX, CELLSTOBESHOWNY, WIDTH, HEIGHT);
     //add the spreadsheet view
     this.add(cellPanel);
+    cellPanel.requestFocusInWindow();
   }
 
   /**

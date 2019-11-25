@@ -2,6 +2,7 @@ package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
+import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,7 +27,7 @@ import javax.swing.border.LineBorder;
 
 class CellPanel extends JPanel {
 
-  private SpreadsheetModel model;
+  private SpreadsheetReadOnlyModel model;
   private SpreadsheetView view;
   private int cellsToBeShownX;
   private int cellsToBeShownY;
@@ -43,7 +44,7 @@ class CellPanel extends JPanel {
   private JScrollBar hBar;
   private JScrollBar vBar;
 
-  CellPanel(SpreadsheetModel model, SpreadsheetView view,
+  CellPanel(SpreadsheetReadOnlyModel model, SpreadsheetView view,
       int cellsToBeShownX, int cellsToBeShownY, int width, int height) {
     super();
     this.model = model;

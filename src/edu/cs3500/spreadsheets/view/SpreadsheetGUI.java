@@ -3,7 +3,9 @@ package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.ReadOnlyBasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
+import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -16,7 +18,7 @@ import javax.swing.JPanel;
  * Represents a scrollable GUI to view a Spreadsheet.
  */
 public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
-  private SpreadsheetModel model;
+  private SpreadsheetReadOnlyModel model;
   static int CELLSTOBESHOWNX = 15;
   static int CELLSTOBESHOWNY = 30;
   static int WIDTH = 1500;
@@ -29,7 +31,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
    *
    * @param model Spreadsheet model to view
    */
-  public SpreadsheetGUI(SpreadsheetModel model) {
+  public SpreadsheetGUI(SpreadsheetReadOnlyModel model) {
     this.model = model;
     //set default size to 1000 x 1000
     setSize(WIDTH, HEIGHT);
@@ -40,7 +42,8 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     //allow min size to be 500 x 500
     this.setMinimumSize(new Dimension(WIDTH * 3 / 4, HEIGHT * 3 / 4));
     //set the spreadsheet view
-    cellPanel = new CellPanel(model, this, CELLSTOBESHOWNX, CELLSTOBESHOWNY, WIDTH, HEIGHT);
+    cellPanel = new CellPanel(model,
+        this, CELLSTOBESHOWNX, CELLSTOBESHOWNY, WIDTH, HEIGHT);
     //add the spreadsheet view
     this.add(cellPanel);
     cellPanel.requestFocusInWindow();

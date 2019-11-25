@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Robot;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyAdapter;
@@ -39,6 +40,8 @@ class CellPanel extends JPanel {
   private int width;
   private int height;
   private Coord focus;
+  private JScrollBar hBar;
+  private JScrollBar vBar;
 
   CellPanel(SpreadsheetModel model, SpreadsheetView view,
       int cellsToBeShownX, int cellsToBeShownY, int width, int height) {
@@ -89,7 +92,6 @@ class CellPanel extends JPanel {
     }
     cellPanel.updateUI();
     this.add(cellPanel);
-
   }
 
   //fill the cells with values
@@ -126,11 +128,11 @@ class CellPanel extends JPanel {
           tempTextField.setBorder(new LineBorder(Color.GRAY, 1));
           tempTextField.setEditable(false);
           tempTextField.setColumns(10);
-          tempTextField.setFocusable(true);
           Coord finalC = new Coord(x, y);
           tempTextField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+              CellPanel.this.grabFocus();
               changeFocus(finalC);
             }
           });
@@ -145,7 +147,7 @@ class CellPanel extends JPanel {
   private void scrollButtons() {
 
     JPanel horizontalScroll = new JPanel();
-    JScrollBar hBar = new JScrollBar(JScrollBar.HORIZONTAL, cellsToBeShownX,
+    hBar = new JScrollBar(JScrollBar.HORIZONTAL, cellsToBeShownX,
         SCROLLINCREMENT, cellsToBeShownX, HBARMAX);
     hBar.addAdjustmentListener(new AdjustmentListener() {
       @Override
@@ -159,7 +161,7 @@ class CellPanel extends JPanel {
     this.add(horizontalScroll, BorderLayout.PAGE_END);
 
     JPanel verticalScroll = new JPanel();
-    JScrollBar vBar = new JScrollBar(JScrollBar.VERTICAL, cellsToBeShownY,
+    vBar = new JScrollBar(JScrollBar.VERTICAL, cellsToBeShownY,
         SCROLLINCREMENT, cellsToBeShownY, VBARMAX);
     vBar.addAdjustmentListener(new AdjustmentListener() {
       @Override
@@ -206,7 +208,8 @@ class CellPanel extends JPanel {
   void repaintCell(Coord coord) {
     // safe cast as we know that Coord values cannot be < 1 and all JComponents
     // in visible cells with both coordinates >= 1 are JTextfields
-    JTextField field = (JTextField) visibleCells.get(coord.row).get(coord.col);
+    JTextField field = (JTextField) visibleCells.get(coord.row + cellsToBeShownY - furthestY).get(
+        coord.col + cellsToBeShownX - furthestX);
     try {
       field.setText(model.getComputedValue(coord));
     } catch (IllegalArgumentException e) {
@@ -216,12 +219,50 @@ class CellPanel extends JPanel {
   }
 
   private void changeFocus(Coord finalC) {
-    if (focus != null) {
-      JComponent c = visibleCells.get(focus.row).get(focus.col);
+    if (finalC.row == furthestY + 1) {
+      furthestY++;
+      vBar.setValue(furthestY);
+      cellPanel.removeAll();
+      fillCells();
+      displayCells();
+      cellPanel.updateUI();
+    }
+    else if (finalC.row == furthestY - cellsToBeShownY) {
+      furthestY--;
+      vBar.setValue(furthestY);
+      cellPanel.removeAll();
+      fillCells();
+      displayCells();
+      cellPanel.updateUI();
+    }
+
+    if (finalC.col == furthestX + 1) {
+      furthestX++;
+      hBar.setValue(furthestX);
+      cellPanel.removeAll();
+      fillCells();
+      displayCells();
+      cellPanel.updateUI();
+    }
+    else if (finalC.col == furthestX - cellsToBeShownX) {
+      furthestX--;
+      hBar.setValue(furthestX);
+      cellPanel.removeAll();
+      fillCells();
+      displayCells();
+      cellPanel.updateUI();
+    }
+
+    if (focus != null &&
+        focus.row < furthestY && focus.row > furthestY - cellsToBeShownY &&
+        focus.col < furthestX && focus.col > furthestX - cellsToBeShownX) {
+      JComponent c = visibleCells.get(focus.row + cellsToBeShownY - furthestY).get(
+          focus.col + cellsToBeShownX - furthestX);
       c.setBackground(Color.WHITE);
       c.updateUI();
     }
-    JComponent c = visibleCells.get(finalC.row).get(finalC.col);
+    JComponent c = visibleCells.get(finalC.row  + cellsToBeShownY - furthestY).get(
+        finalC.col + cellsToBeShownX - furthestX);
     c.setBackground(Color.LIGHT_GRAY);
     c.updateUI();
     view.setCurrentCell(finalC);
@@ -252,7 +293,6 @@ class CellPanel extends JPanel {
             default:
               return;
           }
-
           changeFocus(c);
         }
         catch (IllegalArgumentException ignored) {

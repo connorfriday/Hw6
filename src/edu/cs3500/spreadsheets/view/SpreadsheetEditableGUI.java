@@ -34,6 +34,7 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
     editPanel();
 
     this.currentCell = new Coord(1, 1);
+    cellPanel.requestFocusInWindow();
   }
 
   private void editPanel() {

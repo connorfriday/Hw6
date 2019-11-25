@@ -43,6 +43,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     cellPanel = new CellPanel(model, this, CELLSTOBESHOWNX, CELLSTOBESHOWNY, WIDTH, HEIGHT);
     //add the spreadsheet view
     this.add(cellPanel);
+    cellPanel.requestFocusInWindow();
   }
 
   /**

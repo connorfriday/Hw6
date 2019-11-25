@@ -11,7 +11,6 @@ import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -53,7 +52,6 @@ class CellPanel extends JPanel {
     this.width = width;
     this.height = height;
     this.setFocusable(true);
-    this.requestFocusInWindow();
 
     setSize(width, height);
     setLocation(0, 0);
@@ -71,7 +69,9 @@ class CellPanel extends JPanel {
     displayCells();
     addKeys();
     this.focus = new Coord(1, 1);
-    changeFocus(focus);
+    JComponent c = visibleCells.get(focus.row).get(focus.col);
+    c.setBackground(Color.LIGHT_GRAY);
+    c.updateUI();
   }
 
   //displays cells with specific formatting for grid bag layout

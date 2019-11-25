@@ -45,6 +45,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
    */
   @Override
   public void render() {
+
     setVisible(true);
     cellPanel.grabFocus();
   }

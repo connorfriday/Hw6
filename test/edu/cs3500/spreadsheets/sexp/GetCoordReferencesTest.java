@@ -26,7 +26,6 @@ public class GetCoordReferencesTest {
     assertEquals(new ArrayList<>(), g.visitNumber(10));
   }
 
-
   @Test
   public void visitSList() {
     GetCoordReferences g = new GetCoordReferences();

@@ -43,13 +43,6 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
       s = s.substring(1);
       hasEquals = true;
     }
-    try {
-      Parser.parse(s);
-    } catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException("Error in cell "
-          + coord.toString()
-          + ": " + e.getMessage());
-    }
 
     if (getAllReferences(s).contains(coord)) {
       throw new IllegalArgumentException("This update will create a cycle");

@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.view;
 
 
+import edu.cs3500.spreadsheets.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import java.awt.Dimension;
@@ -21,6 +22,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
   static int WIDTH = 1500;
   static int HEIGHT = 1000;
   CellPanel cellPanel;
+  Coord currentCell;
 
   /**
    * Constructs a spreadsheet GUI.
@@ -52,22 +54,17 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
   }
 
   @Override
-  public String getInputString() {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  public Coord getCurrentCell() {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
   public void setCurrentCell(Coord coord) {
+    //doesn't need to track current cell but allows internal cell panel to do so
+  }
+
+  @Override
+  public void setFeatures(Features features) {
     throw new UnsupportedOperationException();
   }
 
   @Override
-  public void setActionListener(ActionListener a) {
+  public void displayMessage(String message) {
     throw new UnsupportedOperationException();
   }
 }

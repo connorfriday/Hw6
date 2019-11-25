@@ -5,8 +5,10 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -31,18 +33,30 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
 
     editPanel();
 
-    this.currentCell = null;
+    this.currentCell = new Coord(1, 1);
   }
 
   private void editPanel() {
     editPanel = new JPanel();
 
     commitChange = new JButton(Character.toString((char) 10003));
-    commitChange.setActionCommand("Commit");
+    commitChange.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        features.updateCellValue(currentCell, entryField.getText());
+        cellPanel.repaintCell(currentCell);
+      }
+    });
     editPanel.add(commitChange);
 
     cancelChange = new JButton("X");
-    cancelChange.setActionCommand("Cancel");
+    cancelChange.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        entryField.setText(model.getRawValue(currentCell));
+        entryField.updateUI();
+      }
+    });
     editPanel.add(cancelChange);
 
     entryField = new JTextField();
@@ -53,24 +67,20 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
   }
 
   @Override
-  public void setActionListener(ActionListener a) {
-    commitChange.addActionListener(a);
-  }
-
-  @Override
-  public String getInputString() {
-    return entryField.getText();
-  }
-
-  @Override
-  public Coord getCurrentCell() {
-    return this.currentCell;
-  }
-
-  @Override
   public void setCurrentCell(Coord coord) {
     this.currentCell = coord;
     entryField.setText(model.getRawValue(coord));
     entryField.updateUI();
+  }
+
+  @Override
+  public void setFeatures(Features features) {
+    this.features = features;
+  }
+
+  @Override
+  public void displayMessage(String message) {
+    JOptionPane.showMessageDialog(this, message,
+        "Alert", JOptionPane.INFORMATION_MESSAGE);
   }
 }

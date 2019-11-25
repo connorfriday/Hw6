@@ -9,6 +9,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
- class CellPanel extends JPanel {
+class CellPanel extends JPanel {
 
   private SpreadsheetModel model;
   private SpreadsheetView view;
@@ -36,6 +39,7 @@ import javax.swing.border.LineBorder;
   private static int SCROLLINCREMENT = 1;
   private int width;
   private int height;
+  private Coord focus;
 
   CellPanel(SpreadsheetModel model, SpreadsheetView view,
       int cellsToBeShownX, int cellsToBeShownY, int width, int height) {
@@ -48,6 +52,8 @@ import javax.swing.border.LineBorder;
     furthestY = this.cellsToBeShownY;
     this.width = width;
     this.height = height;
+    this.setFocusable(true);
+    this.requestFocusInWindow();
 
     setSize(width, height);
     setLocation(0, 0);
@@ -63,6 +69,9 @@ import javax.swing.border.LineBorder;
     fillCells();
     scrollButtons();
     displayCells();
+    addKeys();
+    this.focus = new Coord(1, 1);
+    changeFocus(focus);
   }
 
   //displays cells with specific formatting for grid bag layout
@@ -117,11 +126,12 @@ import javax.swing.border.LineBorder;
           tempTextField.setBorder(new LineBorder(Color.GRAY, 1));
           tempTextField.setEditable(false);
           tempTextField.setColumns(10);
+          tempTextField.setFocusable(true);
           Coord finalC = new Coord(x, y);
           tempTextField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-              view.setCurrentCell(finalC);
+              changeFocus(finalC);
             }
           });
           tempList.add(tempTextField);
@@ -191,5 +201,63 @@ import javax.swing.border.LineBorder;
       displayCells();
       cellPanel.updateUI();
     }
+  }
+
+  void repaintCell(Coord coord) {
+    // safe cast as we know that Coord values cannot be < 1 and all JComponents
+    // in visible cells with both coordinates >= 1 are JTextfields
+    JTextField field = (JTextField) visibleCells.get(coord.row).get(coord.col);
+    try {
+      field.setText(model.getComputedValue(coord));
+    } catch (IllegalArgumentException e) {
+      field.setText("#Error");
+    }
+    field.updateUI();
+  }
+
+  private void changeFocus(Coord finalC) {
+    if (focus != null) {
+      JComponent c = visibleCells.get(focus.row).get(focus.col);
+      c.setBackground(Color.WHITE);
+      c.updateUI();
+    }
+    JComponent c = visibleCells.get(finalC.row).get(finalC.col);
+    c.setBackground(Color.LIGHT_GRAY);
+    c.updateUI();
+    view.setCurrentCell(finalC);
+    focus = finalC;
+  }
+
+  private void addKeys() {
+    this.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(KeyEvent e) {
+        int code = e.getKeyCode();
+        Coord c;
+
+        try {
+          switch (code) {
+            case KeyEvent.VK_UP:
+              c = new Coord(focus.col, focus.row - 1);
+              break;
+            case KeyEvent.VK_DOWN:
+              c = new Coord(focus.col, focus.row + 1);
+              break;
+            case KeyEvent.VK_RIGHT:
+              c = new Coord(focus.col + 1, focus.row);
+              break;
+            case KeyEvent.VK_LEFT:
+              c = new Coord(focus.col - 1, focus.row);
+              break;
+            default:
+              return;
+          }
+
+          changeFocus(c);
+        }
+        catch (IllegalArgumentException ignored) {
+        }
+      }
+    });
   }
 }

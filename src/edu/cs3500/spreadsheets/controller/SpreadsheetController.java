@@ -12,7 +12,6 @@ public interface SpreadsheetController extends Features{
   /**
    * Starts the stream of interactions between the user and the model.
    * @param model The object representing the actual spreadsheet contents
-   * @param view The object handling showing the spreadsheet to the user
    */
-  void start(SpreadsheetModel model, SpreadsheetView view);
+  void start(SpreadsheetModel model);
 }

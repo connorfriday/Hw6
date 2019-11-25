@@ -1,5 +1,7 @@
 package edu.cs3500.spreadsheets;
 
+import edu.cs3500.spreadsheets.controller.SpreadsheetController;
+import edu.cs3500.spreadsheets.controller.SpreadsheetControllerEditable;
 import edu.cs3500.spreadsheets.model.BasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
@@ -78,13 +80,8 @@ public class BeyondGood {
   }
 
   private static void edit(SpreadsheetModel model) throws InvalidCommandException {
-    try {
-      SpreadsheetView view = new SpreadsheetEditableGUI(model);
-      view.render();
-    }
-    catch (IOException e) {
-      throw new InvalidCommandException("Issue to read from input or write to output");
-    }
+      SpreadsheetController c = new SpreadsheetControllerEditable();
+      c.start(model);
   }
 
 

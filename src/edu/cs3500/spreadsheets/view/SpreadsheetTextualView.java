@@ -54,6 +54,11 @@ public class SpreadsheetTextualView implements SpreadsheetView {
   }
 
   @Override
+  public void setCurrentCell(Coord coord) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
   public void setActionListener(ActionListener a) {
     throw new UnsupportedOperationException();
   }

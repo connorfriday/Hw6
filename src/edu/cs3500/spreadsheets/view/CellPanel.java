@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -25,6 +24,7 @@ import javax.swing.border.LineBorder;
  class CellPanel extends JPanel {
 
   private SpreadsheetModel model;
+  private SpreadsheetView view;
   private int cellsToBeShownX;
   private int cellsToBeShownY;
   private int furthestX;
@@ -36,11 +36,12 @@ import javax.swing.border.LineBorder;
   private static int SCROLLINCREMENT = 1;
   private int width;
   private int height;
-  private Coord currentCell;
 
-  CellPanel(SpreadsheetModel model, int cellsToBeShownX, int cellsToBeShownY, int width, int height) {
+  CellPanel(SpreadsheetModel model, SpreadsheetView view,
+      int cellsToBeShownX, int cellsToBeShownY, int width, int height) {
     super();
     this.model = model;
+    this.view = view;
     this.cellsToBeShownX = cellsToBeShownX;
     this.cellsToBeShownY = cellsToBeShownY;
     furthestX = this.cellsToBeShownX;
@@ -108,25 +109,21 @@ import javax.swing.border.LineBorder;
         } else {
           JTextField tempTextField;
           try {
-            tempTextField = new JTextField(model.getComputedValue(new Coord(x, y)));
-            int finalX = x;
-            int finalY = y;
-            tempTextField.addMouseListener(new MouseAdapter() {
-
-              private int xCoord = finalX;
-              private int yCoord = finalY;
-            @Override
-            public void mouseClicked(MouseEvent e) {
-              currentCell = new Coord(finalX, finalY);
-            }
-
-            });
+            Coord c = new Coord(x, y);
+            tempTextField = new JTextField(model.getComputedValue(c));
           } catch (IllegalArgumentException e) {
             tempTextField = new JTextField("#ERROR");
           }
           tempTextField.setBorder(new LineBorder(Color.GRAY, 1));
           tempTextField.setEditable(false);
           tempTextField.setColumns(10);
+          Coord finalC = new Coord(x, y);
+          tempTextField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+              view.setCurrentCell(finalC);
+            }
+          });
           tempList.add(tempTextField);
         }
       }
@@ -194,9 +191,5 @@ import javax.swing.border.LineBorder;
       displayCells();
       cellPanel.updateUI();
     }
-  }
-
-  public Coord getCurrentCell() {
-    return this.currentCell;
   }
 }

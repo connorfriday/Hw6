@@ -1,19 +1,18 @@
 package edu.cs3500.spreadsheets.view;
 
+import edu.cs3500.spreadsheets.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class SpreadsheetEditableGUI extends SpreadsheetGUI implements ActionListener, MouseListener {
+public class SpreadsheetEditableGUI extends SpreadsheetGUI {
   private SpreadsheetModel model;
+  private Features features;
   private JButton commitChange;
   private JButton cancelChange;
   private JTextField entryField;
@@ -35,17 +34,10 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI implements ActionList
     this.currentCell = null;
   }
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    if (e.getActionCommand().equals("Cancel") && currentCell != null) {
-      entryField.setText(this.model.getRawValue(currentCell));
-    }
-  }
-
   private void editPanel() {
     editPanel = new JPanel();
 
-    commitChange = new JButton(Character.toString((char) 2705));
+    commitChange = new JButton(Character.toString((char) 10003));
     commitChange.setActionCommand("Commit");
     editPanel.add(commitChange);
 
@@ -63,7 +55,6 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI implements ActionList
   @Override
   public void setActionListener(ActionListener a) {
     commitChange.addActionListener(a);
-    cancelChange.addActionListener(this);
   }
 
   @Override
@@ -77,28 +68,9 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI implements ActionList
   }
 
   @Override
-  public void mouseClicked(MouseEvent e) {
-
+  public void setCurrentCell(Coord coord) {
+    this.currentCell = coord;
+    entryField.setText(model.getRawValue(coord));
+    entryField.updateUI();
   }
-
-  @Override
-  public void mousePressed(MouseEvent e) {
-    return;
-  }
-
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    return;
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent e) {
-    return;
-  }
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-    return;
-  }
-
 }

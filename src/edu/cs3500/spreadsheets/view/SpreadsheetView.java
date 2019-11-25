@@ -28,6 +28,12 @@ public interface SpreadsheetView {
   Coord getCurrentCell();
 
   /**
+   * Sets the current cell of the view to the given coord.
+   * @param coord the coordinates of the current cell
+   */
+  void setCurrentCell(Coord coord);
+
+  /**
    * Sets the object that will handle any events that mutate the model
    * @param a the action listener that handles the events
    */

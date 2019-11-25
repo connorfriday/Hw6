@@ -38,7 +38,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     //allow min size to be 500 x 500
     this.setMinimumSize(new Dimension(WIDTH * 3 / 4, HEIGHT * 3 / 4));
     //set the spreadsheet view
-    cellPanel = new CellPanel(model, CELLSTOBESHOWNX, CELLSTOBESHOWNY, WIDTH, HEIGHT);
+    cellPanel = new CellPanel(model, this, CELLSTOBESHOWNX, CELLSTOBESHOWNY, WIDTH, HEIGHT);
     //add the spreadsheet view
     this.add(cellPanel);
   }
@@ -58,6 +58,11 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
 
   @Override
   public Coord getCurrentCell() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void setCurrentCell(Coord coord) {
     throw new UnsupportedOperationException();
   }
 

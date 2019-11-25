@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyAdapter;
@@ -126,11 +127,12 @@ class CellPanel extends JPanel {
           tempTextField.setBorder(new LineBorder(Color.GRAY, 1));
           tempTextField.setEditable(false);
           tempTextField.setColumns(10);
-          tempTextField.setFocusable(true);
+          tempTextField.setFocusable(false);
           Coord finalC = new Coord(x, y);
           tempTextField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+              CellPanel.this.grabFocus();
               changeFocus(finalC);
             }
           });
@@ -216,6 +218,7 @@ class CellPanel extends JPanel {
   }
 
   private void changeFocus(Coord finalC) {
+
     if (focus != null) {
       JComponent c = visibleCells.get(focus.row).get(focus.col);
       c.setBackground(Color.WHITE);
@@ -229,6 +232,7 @@ class CellPanel extends JPanel {
   }
 
   private void addKeys() {
+
     this.addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(KeyEvent e) {
@@ -236,6 +240,7 @@ class CellPanel extends JPanel {
         Coord c;
 
         try {
+
           switch (code) {
             case KeyEvent.VK_UP:
               c = new Coord(focus.col, focus.row - 1);
@@ -256,6 +261,7 @@ class CellPanel extends JPanel {
           changeFocus(c);
         }
         catch (IllegalArgumentException ignored) {
+
         }
       }
     });

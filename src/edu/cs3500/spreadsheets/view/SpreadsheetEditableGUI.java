@@ -34,13 +34,16 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
     editPanel();
 
     this.currentCell = new Coord(1, 1);
-    cellPanel.requestFocusInWindow();
+
   }
 
   private void editPanel() {
+
     editPanel = new JPanel();
+    editPanel.setFocusable(false);
 
     commitChange = new JButton(Character.toString((char) 10003));
+    commitChange.setFocusable(false);
     commitChange.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -51,6 +54,7 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
     editPanel.add(commitChange);
 
     cancelChange = new JButton("X");
+    cancelChange.setFocusable(false);
     cancelChange.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -61,6 +65,7 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
     editPanel.add(cancelChange);
 
     entryField = new JTextField();
+    //entryField.setFocusable(false);
     entryField.setPreferredSize(new Dimension(WIDTH / 2, 20));
     editPanel.add(entryField);
 

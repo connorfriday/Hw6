@@ -2,9 +2,7 @@ package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /**
@@ -17,7 +15,7 @@ public class SpreadsheetTextualView implements SpreadsheetView {
   private Appendable out;
 
   /**
-   * Constructs an instance of this textual view given a model and an output
+   * Constructs an instance of this textual view given a model and an output.
    *
    * @param model The spreadsheet we are trying to view
    * @param out   The place to output the representation of the model

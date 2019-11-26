@@ -157,9 +157,9 @@ class CellPanel extends JPanel {
   private void scrollButtons() {
 
     JPanel horizontalScroll = new JPanel();
-    int SCROLLINCREMENT = 1;
+    int scrollIncrement = 1;
     hBar = new JScrollBar(JScrollBar.HORIZONTAL, cellsToBeShownX,
-        SCROLLINCREMENT, cellsToBeShownX, HBARMAX);
+        scrollIncrement, cellsToBeShownX, HBARMAX);
     hBar.addAdjustmentListener(new AdjustmentListener() {
       @Override
       public void adjustmentValueChanged(AdjustmentEvent e) {
@@ -173,7 +173,7 @@ class CellPanel extends JPanel {
 
     JPanel verticalScroll = new JPanel();
     vBar = new JScrollBar(JScrollBar.VERTICAL, cellsToBeShownY,
-        SCROLLINCREMENT, cellsToBeShownY, VBARMAX);
+        scrollIncrement, cellsToBeShownY, VBARMAX);
     vBar.addAdjustmentListener(new AdjustmentListener() {
       @Override
       public void adjustmentValueChanged(AdjustmentEvent e) {

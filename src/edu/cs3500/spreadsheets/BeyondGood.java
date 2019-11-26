@@ -81,8 +81,8 @@ public class BeyondGood {
 
   // given a model, creates an editable GUI view and renders the veiw
   private static void edit(SpreadsheetModel model) {
-      SpreadsheetController c = new SpreadsheetControllerEditable();
-      c.start(model);
+    SpreadsheetController c = new SpreadsheetControllerEditable();
+    c.start(model);
   }
 
   // given a model, creates a GUI view and renders the view

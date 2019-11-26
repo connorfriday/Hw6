@@ -1,7 +1,7 @@
 package edu.cs3500.spreadsheets.controller;
 
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.SpreadsheetModel;
+
 
 /**
  * Features that a spreadsheet can use.

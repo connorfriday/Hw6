@@ -1,8 +1,6 @@
 package edu.cs3500.spreadsheets.controller;
 
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
-import edu.cs3500.spreadsheets.view.SpreadsheetView;
-import java.awt.event.ActionListener;
 
 /**
  * An interface for managing the interactions between a user and a spreadsheet model.

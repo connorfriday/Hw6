@@ -21,19 +21,19 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
    */
   public SpreadsheetGUI(SpreadsheetReadOnlyModel model) {
     //set default size to 1000 x 1000
-    int HEIGHT = 1000;
-    setSize(WIDTH, HEIGHT);
+    int height = 1000;
+    setSize(WIDTH, height);
     //set default location to 0 0
     setLocation(0, 0);
     //set close frame to Exit on Close
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     //allow min size to be 500 x 500
-    this.setMinimumSize(new Dimension(WIDTH * 3 / 4, HEIGHT * 3 / 4));
+    this.setMinimumSize(new Dimension(WIDTH * 3 / 4, height * 3 / 4));
     //set the spreadsheet view
-    int CELLSTOBESHOWNX = 15;
-    int CELLSTOBESHOWNY = 30;
+    int cellsToBeShownX = 15;
+    int cellsToBeShownY = 30;
     cellPanel = new CellPanel(model,
-        this, CELLSTOBESHOWNX, CELLSTOBESHOWNY, WIDTH, HEIGHT);
+        this, cellsToBeShownX, cellsToBeShownY, WIDTH, height);
     //add the spreadsheet view
     this.add(cellPanel);
     cellPanel.requestFocusInWindow();

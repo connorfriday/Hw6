@@ -2,21 +2,17 @@ package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /**
  * A GUI implementation of viewing a spreadsheet, able to make edits to the spreadsheet.
@@ -92,16 +88,17 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
             "", "Options", JOptionPane.YES_NO_CANCEL_OPTION,
             JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
-        if(choice == 0) {
-          String file =  JOptionPane.showInputDialog(SpreadsheetEditableGUI.this, "Save As:", "Save",
+        if (choice == 0) {
+          String file =  JOptionPane.showInputDialog(SpreadsheetEditableGUI.this,
+              "Save As:", "Save",
               JOptionPane.QUESTION_MESSAGE, null, null, ".txt").toString();
 
           SpreadsheetEditableGUI.this.features.saveFile(file);
         }
-        if(choice == 1) {
+        if (choice == 1) {
           JFileChooser chooser = new JFileChooser();
           int returnVal = chooser.showOpenDialog(SpreadsheetEditableGUI.this);
-          if(returnVal == JFileChooser.APPROVE_OPTION) {
+          if (returnVal == JFileChooser.APPROVE_OPTION) {
             SpreadsheetEditableGUI.this.features.loadFile(chooser.getSelectedFile().getName());
           }
         }

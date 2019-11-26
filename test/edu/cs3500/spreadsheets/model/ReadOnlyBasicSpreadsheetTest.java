@@ -4,15 +4,18 @@ import edu.cs3500.spreadsheets.model.WorksheetReader.BasicWorksheetBuilder;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
-
+/**
+ * Testing suite for a read-only model.
+ */
 public class ReadOnlyBasicSpreadsheetTest {
 
-  //test getRawValue
-  //test getComputedValue
-  //test getFunctions
-  //test getNonEmptyCoordinates
+  //testing for this implementation is very easy-
+  //the functionality is entirely derived from a BasicSpreadsheetModel, and only contains 4 methods
+  //It does not even contain the methods to edit the model
+
 
   @Test
   public void testGetRawValue() throws FileNotFoundException {
@@ -39,6 +42,14 @@ public class ReadOnlyBasicSpreadsheetTest {
         WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample.txt"));
     SpreadsheetReadOnlyModel rom = new ReadOnlyBasicSpreadsheetModel(model);
     assertEquals(rom.getFunctions(), model.getFunctions());
+  }
+
+  @Test
+  public void testGetNonEmptyCoordinates() throws FileNotFoundException {
+    SpreadsheetModel model =
+        WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample.txt"));
+    SpreadsheetReadOnlyModel rom = new ReadOnlyBasicSpreadsheetModel(model);
+    assertEquals(rom.getNonEmptyCoordinates(), model.getNonEmptyCoordinates());
   }
 
 

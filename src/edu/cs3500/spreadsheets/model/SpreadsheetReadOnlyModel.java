@@ -3,6 +3,9 @@ package edu.cs3500.spreadsheets.model;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Read only format of a model - only allows reading a spreadsheet, no editing.
+ */
 public interface SpreadsheetReadOnlyModel {
 
   /**

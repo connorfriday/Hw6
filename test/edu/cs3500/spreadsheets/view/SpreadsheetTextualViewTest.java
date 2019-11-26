@@ -30,7 +30,8 @@ public class SpreadsheetTextualViewTest {
       SpreadsheetModel model = WorksheetReader.read(build, reader);
       StringBuilder expectedOut = new StringBuilder();
       StringBuilder out = new StringBuilder();
-      SpreadsheetView view = new SpreadsheetTextualView(new ReadOnlyBasicSpreadsheetModel(model), out);
+      SpreadsheetView view = new SpreadsheetTextualView(new ReadOnlyBasicSpreadsheetModel(model),
+          out);
       view.render();
       expectedOut.append("A1 =B1\n"
           + "B1 =C1\n"
@@ -78,7 +79,8 @@ public class SpreadsheetTextualViewTest {
       SpreadsheetModel model = WorksheetReader.read(build, reader);
       StringBuilder expectedOut = new StringBuilder();
       StringBuilder out = new StringBuilder();
-      SpreadsheetView view = new SpreadsheetTextualView(new ReadOnlyBasicSpreadsheetModel(model), out);
+      SpreadsheetView view = new SpreadsheetTextualView(new ReadOnlyBasicSpreadsheetModel(model),
+          out);
       view.render();
       expectedOut.append("A1 =(SUM SUM)\n"
           + "A41 =(SUM cat mouse)\n"
@@ -98,7 +100,8 @@ public class SpreadsheetTextualViewTest {
       WorksheetBuilder<BasicSpreadsheetModel> build = new BasicWorksheetBuilder();
       SpreadsheetModel model1 = WorksheetReader.read(build, reader);
       StringBuilder out = new StringBuilder();
-      SpreadsheetView view = new SpreadsheetTextualView(new ReadOnlyBasicSpreadsheetModel(model1), out);
+      SpreadsheetView view = new SpreadsheetTextualView(new ReadOnlyBasicSpreadsheetModel(model1),
+          out);
       view.render();
       SpreadsheetModel model2 = WorksheetReader.read(build, new StringReader(out.toString()));
       Set<Coord> model1Cells = model1.getNonEmptyCoordinates();

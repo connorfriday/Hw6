@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -51,7 +52,12 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
     commitChange.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        features.updateCellValue(currentCell, entryField.getText());
+        if(entryField.getText().equals("")) {
+          features.updateCellValue(currentCell, "");
+        }
+        else {
+          features.updateCellValue(currentCell, entryField.getText());
+        }
         cellPanel.repaintCell();
       }
     });
@@ -67,9 +73,7 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
       }
     });
     editPanel.add(cancelChange);
-
     entryField = new JTextField();
-    //entryField.setFocusable(false);
     entryField.setPreferredSize(new Dimension(WIDTH / 2, 20));
     editPanel.add(entryField);
 
@@ -78,15 +82,20 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
 
   //options button that triggers loading/saving file
   private JButton optionsButton() {
-    JButton optionsButton = new JButton("Options");
+    JButton optionsButton = new JButton("Options/Instructions");
     optionsButton.addActionListener(new ActionListener() {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        String[] options = {"Save File", "Load File"};
+        String[] options = {"<html><b><u><font color=\"#F5DEB3\">Save File:</u><html>",
+            "<html><b><u><font color=\"#20B2AA\">LoadFile:</u><html>",
+            "<html><b><u><font color=\"#6495ED\">Instructions:</u><html>"};
         int choice = JOptionPane.showOptionDialog(SpreadsheetEditableGUI.this,
-            "", "Options", JOptionPane.YES_NO_CANCEL_OPTION,
-            JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+            new JLabel("<html><b><u><i><font color=\"#FF1493\">Select:</u></i><html>",
+                JLabel.CENTER),
+            "Options/Instructions",
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            -1, null, options, null);
 
         if (choice == 0) {
           String file =  JOptionPane.showInputDialog(SpreadsheetEditableGUI.this,
@@ -101,6 +110,15 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
           if (returnVal == JFileChooser.APPROVE_OPTION) {
             SpreadsheetEditableGUI.this.features.loadFile(chooser.getSelectedFile().getName());
           }
+        }
+        if (choice == 2) {
+          JOptionPane.showMessageDialog(SpreadsheetEditableGUI.this,
+              "<html><li><b>Switch cells by clicking on the desired cell"
+                  + " or by using the arrow keys.<html>\n"
+                  + "<html><li><b> To load/save a file, click options.<html>\n"
+                  + "<html><li><b>To scroll, use either the arrow keys or the scroll bars.<html>\n"
+                  + "<html><li><b>Use the text field to edit contents,"
+                  + " check to confirm and X to revert.<html>");
         }
 
       }

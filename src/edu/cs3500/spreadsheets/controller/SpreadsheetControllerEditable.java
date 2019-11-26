@@ -39,6 +39,9 @@ public class SpreadsheetControllerEditable implements SpreadsheetController, Fea
   @Override
   public void updateCellValue(Coord coord, String contents) {
     try {
+      if(contents.trim().isEmpty()) {
+        this.model.clearCell(coord);
+      }
       this.model.setCell(contents, coord);
     }
     catch (IllegalArgumentException e) {
@@ -61,6 +64,11 @@ public class SpreadsheetControllerEditable implements SpreadsheetController, Fea
   @Override
   public void saveFile(String destinationFile) {
     try {
+      if(!(destinationFile.length() > 4) ||
+          !destinationFile.substring(destinationFile.length() - 4).equals(".txt")) {
+        view.displayMessage("Destination file must be .txt with name");
+        return;
+      }
       PrintWriter writer = new PrintWriter(destinationFile);
       SpreadsheetView view = new SpreadsheetTextualView(rom, writer);
       view.render();
@@ -72,6 +80,11 @@ public class SpreadsheetControllerEditable implements SpreadsheetController, Fea
     catch (IOException e) {
       view.displayMessage("Unable to save file at destination: " + destinationFile);
     }
+  }
+
+  @Override
+  public void clearCell(Coord coord) {
+    this.model.clearCell(coord);
   }
 
 }

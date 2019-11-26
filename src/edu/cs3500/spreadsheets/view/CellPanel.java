@@ -131,7 +131,12 @@ class CellPanel extends JPanel {
           JTextField tempTextField;
           try {
             Coord c = new Coord(x, y);
-            tempTextField = new JTextField(model.getComputedValue(c));
+            if(model.getRawValue(c).equals("")) {
+              tempTextField = new JTextField();
+            }
+            else {
+              tempTextField = new JTextField(model.getComputedValue(c));
+            }
           } catch (IllegalArgumentException e) {
             tempTextField = new JTextField("#ERROR");
           }
@@ -146,6 +151,9 @@ class CellPanel extends JPanel {
               changeFocus(finalC);
             }
           });
+          if(focus != null && focus.equals(new Coord(x, y))) {
+            tempTextField.setBackground(Color.LIGHT_GRAY);
+          }
           tempList.add(tempTextField);
         }
       }

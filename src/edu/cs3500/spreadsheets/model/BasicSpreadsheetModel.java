@@ -35,26 +35,44 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
   // throws illegal argument from parser
   @Override
   public void setCell(String s, Coord coord) {
-    if (s.isEmpty()) {
-      return;
-    }
-    boolean hasEquals = false;
-    if (s.charAt(0) == '=') {
-      s = s.substring(1);
-      hasEquals = true;
-    }
+    if (!s.trim().isEmpty()) {
 
-    if (getAllReferences(s).contains(coord)) {
-      throw new IllegalArgumentException("This update will create a cycle");
-    }
+      boolean hasEquals = false;
+      if (s.charAt(0) == '=') {
+        s = s.substring(1);
+        hasEquals = true;
+      }
 
-    if (hasEquals) {
-      s = "=" + s;
-    }
+      try {
+        Parser.parse(s);
+      } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException("Error in cell "
+            + coord.toString()
+            + ": " + e.getMessage());
+      }
 
+      if (getAllReferences(s).contains(coord)) {
+        throw new IllegalArgumentException("This update will create a cycle");
+      }
+
+      if (hasEquals) {
+        s = "=" + s;
+      }
+    }
     if (!cells.containsKey(coord)) {
-      cells.put(coord, new Cell(s));
+      if(s.trim().isEmpty()) {
+        this.evaluated.clear();
+        return;
+      }
+      else {
+        cells.put(coord, new Cell(s));
+      }
     } else {
+      if(s.trim().isEmpty()) {
+        cells.remove(coord);
+        this.evaluated.clear();
+        return;
+      }
       Cell c = this.cells.get(coord);
       c.updateContents(s);
     }
@@ -72,7 +90,11 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
 
       if (cells.containsKey(curr)) {
         Cell cell = cells.get(curr);
-        for (Coord coord : Parser.parse(cell.getContents()).accept(new GetCoordReferences())) {
+        String str = cell.getContents();
+        if(str.charAt(0 )== '=') {
+          str = str.substring(1);
+        }
+        for (Coord coord : Parser.parse(str).accept(new GetCoordReferences())) {
           if (!refs.contains(coord)) {
             stack.push(coord);
           }
@@ -92,6 +114,11 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
 
   @Override
   public String getComputedValue(Coord coord) {
+    String str = getRawValue(coord);
+    if(str.trim().isEmpty()) {
+      return str;
+    }
+
     if (evaluated.containsKey(coord)) {
       return evaluated.get(coord);
     } else {
@@ -100,7 +127,12 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
         return "";
       }
       try {
-        String res = parseAndEvaluate(getRawValue(coord));
+        String s = getRawValue(coord);
+        if (s.charAt(0) == '=') {
+         s = s.substring(1);
+        }
+
+        String res = parseAndEvaluate(s);
         evaluated.put(coord, res);
         return res;
       } catch (IllegalArgumentException e) {

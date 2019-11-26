@@ -14,7 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class SpreadsheetControllerEditable implements SpreadsheetController {
+public class SpreadsheetControllerEditable implements SpreadsheetController, Features {
   private SpreadsheetModel model;
   private SpreadsheetReadOnlyModel rom;
   private SpreadsheetView view;

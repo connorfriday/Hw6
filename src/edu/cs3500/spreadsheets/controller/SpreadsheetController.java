@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 /**
  * An interface for managing the interactions between a user and a spreadsheet model.
  */
-public interface SpreadsheetController extends Features{
+public interface SpreadsheetController {
 
   /**
    * Starts the stream of interactions between the user and the model.

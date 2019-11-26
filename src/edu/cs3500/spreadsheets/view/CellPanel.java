@@ -1,14 +1,12 @@
 package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Robot;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyAdapter;
@@ -25,6 +23,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+/**
+ * A panel that contains the cells of a spreadsheet.
+ */
 class CellPanel extends JPanel {
 
   private SpreadsheetReadOnlyModel model;
@@ -37,13 +38,21 @@ class CellPanel extends JPanel {
   private JPanel cellPanel;
   private static int HBARMAX = 500;
   private static int VBARMAX = 500;
-  private static int SCROLLINCREMENT = 1;
   private int width;
   private int height;
   private Coord focus;
   private JScrollBar hBar;
   private JScrollBar vBar;
 
+  /**
+   * Constructs a cell panel with the cells from a spreadsheet, to be viewed.
+   * @param model model to display
+   * @param view view to display to
+   * @param cellsToBeShownX how many cells are in each row
+   * @param cellsToBeShownY how many cells are in each column
+   * @param width width of screen dimensions
+   * @param height height of screen dimensions
+   */
   CellPanel(SpreadsheetReadOnlyModel model, SpreadsheetView view,
       int cellsToBeShownX, int cellsToBeShownY, int width, int height) {
     super();
@@ -148,6 +157,7 @@ class CellPanel extends JPanel {
   private void scrollButtons() {
 
     JPanel horizontalScroll = new JPanel();
+    int SCROLLINCREMENT = 1;
     hBar = new JScrollBar(JScrollBar.HORIZONTAL, cellsToBeShownX,
         SCROLLINCREMENT, cellsToBeShownX, HBARMAX);
     hBar.addAdjustmentListener(new AdjustmentListener() {
@@ -206,6 +216,7 @@ class CellPanel extends JPanel {
     }
   }
 
+  //repaints the cells to update changes visually
   void repaintCell() {
 
     cellPanel.removeAll();
@@ -215,6 +226,7 @@ class CellPanel extends JPanel {
     changeFocus(focus);
   }
 
+  //changes which cell is highlighted
   private void changeFocus(Coord finalC) {
     if (finalC.row == furthestY + 1) {
       furthestY++;
@@ -266,6 +278,7 @@ class CellPanel extends JPanel {
     focus = finalC;
   }
 
+  //adds key listeners so you can switch hilighted cells with keys
   private void addKeys() {
     this.addKeyListener(new KeyAdapter() {
       @Override

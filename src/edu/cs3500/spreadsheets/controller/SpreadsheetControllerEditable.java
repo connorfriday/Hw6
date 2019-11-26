@@ -14,6 +14,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * Represents a controller for an editable spreadsheet implementation.
+ */
 public class SpreadsheetControllerEditable implements SpreadsheetController, Features {
   private SpreadsheetModel model;
   private SpreadsheetReadOnlyModel rom;
@@ -71,8 +74,4 @@ public class SpreadsheetControllerEditable implements SpreadsheetController, Fea
     }
   }
 
-  @Override
-  public void clearContents(Coord coord) {
-    this.model.clearCell(coord);
-  }
 }

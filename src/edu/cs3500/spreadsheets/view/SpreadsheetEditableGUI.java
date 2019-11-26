@@ -18,18 +18,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * A GUI implementation of viewing a spreadsheet, able to make edits to the spreadsheet.
+ */
 public class SpreadsheetEditableGUI extends SpreadsheetGUI {
   private SpreadsheetReadOnlyModel model;
   private Features features;
-  private JButton commitChange;
-  private JButton cancelChange;
   private JTextField entryField;
-  private JPanel editPanel;
   private Coord currentCell;
 
   /**
    * Constructs a spreadsheet GUI.
-   *
    * @param model Spreadsheet model to view
    */
   public SpreadsheetEditableGUI(SpreadsheetReadOnlyModel model) {
@@ -41,18 +40,18 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
 
     this.currentCell = new Coord(1, 1);
 
-
   }
 
 
+  //panel that allows edits to be made
   private void editPanel() {
 
-    editPanel = new JPanel();
+    JPanel editPanel = new JPanel();
     editPanel.setFocusable(false);
 
     editPanel.add(this.optionsButton());
 
-    commitChange = new JButton(Character.toString((char) 10003));
+    JButton commitChange = new JButton(Character.toString((char) 10003));
     commitChange.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -62,7 +61,7 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
     });
     editPanel.add(commitChange);
 
-    cancelChange = new JButton("X");
+    JButton cancelChange = new JButton("X");
     cancelChange.setFocusable(false);
     cancelChange.addActionListener(new ActionListener() {
       @Override
@@ -81,6 +80,7 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
     this.add(editPanel, BorderLayout.PAGE_START);
   }
 
+  //options button that triggers loading/saving file
   private JButton optionsButton() {
     JButton optionsButton = new JButton("Options");
     optionsButton.addActionListener(new ActionListener() {

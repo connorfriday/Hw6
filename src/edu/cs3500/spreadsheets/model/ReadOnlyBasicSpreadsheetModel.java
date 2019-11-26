@@ -3,9 +3,17 @@ package edu.cs3500.spreadsheets.model;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Read-only version of a BasicSpreadsheetModel - cannot edit the model but can read from model.
+ */
 public class ReadOnlyBasicSpreadsheetModel implements SpreadsheetReadOnlyModel {
-    private SpreadsheetModel model;
 
+  private SpreadsheetModel model;
+
+  /**
+   * Constructs an instance of a read-only basic spreadsheet model.
+   * @param model the model to transform into read-only
+   */
   public ReadOnlyBasicSpreadsheetModel(SpreadsheetModel model) {
     this.model = model;
   }

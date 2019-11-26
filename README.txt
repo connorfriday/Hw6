@@ -3,6 +3,7 @@ This file details changes and updates for assignment 7.
 1. Created a read only model interface and class for use by views. Views can now only have a
     read only model.
 
+
 2. Updated our view interface.
     a) setCurrentCell()
        - allowed us to highlight the current cell and track which cell the user is editing

@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 /**
  * Represents a controller for an editable spreadsheet implementation.
  */
-public class SpreadsheetControllerEditable implements SpreadsheetController, Features {
+public class SpreadsheetControllerEditable implements Features, SpreadsheetController {
   private SpreadsheetModel model;
   private SpreadsheetReadOnlyModel rom;
   private SpreadsheetView view;
@@ -50,7 +50,7 @@ public class SpreadsheetControllerEditable implements SpreadsheetController, Fea
   }
 
   @Override
-  public void loadFile(String sourceFile) {
+  public SpreadsheetModel loadFile(String sourceFile) {
     try {
       SpreadsheetModel model =
           WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader(sourceFile));
@@ -59,6 +59,7 @@ public class SpreadsheetControllerEditable implements SpreadsheetController, Fea
     catch (IOException e) {
       view.displayMessage("Unable to load file: " + sourceFile);
     }
+    return model;
   }
 
   @Override
@@ -86,5 +87,4 @@ public class SpreadsheetControllerEditable implements SpreadsheetController, Fea
   public void clearCell(Coord coord) {
     this.model.clearCell(coord);
   }
-
 }

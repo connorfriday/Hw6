@@ -43,3 +43,7 @@ This file details changes and updates for assignment 7.
     - The GUI options are handled in the view, but once the user chooses a file to load in the file
       chooser the filename is passed to the controller which then constructs a model using the
       existing WorksheetReader class and then reruns the controller with that model
+
+6. Mock for testing Controller
+   - implemented a mock model for testing that the controller only called
+     methods that mutate the model when we expected it to

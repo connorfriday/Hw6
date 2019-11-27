@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.controller;
 
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 
 
 /**
@@ -18,8 +19,9 @@ public interface Features {
   /**
    * Loads a file into a GUI.
    * @param sourceFile the file which will be loaded
+   * @return the model built from the source file
    */
-  void loadFile(String sourceFile);
+  SpreadsheetModel loadFile(String sourceFile);
 
   /**
    * Saves the current GUI into a given destination.

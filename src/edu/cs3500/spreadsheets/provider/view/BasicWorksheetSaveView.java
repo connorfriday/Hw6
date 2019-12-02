@@ -1,11 +1,11 @@
 package edu.cs3500.spreadsheets.provider.view;
 
+import edu.cs3500.spreadsheets.provider.cell.CellFormula;
+import edu.cs3500.spreadsheets.provider.model.BasicWorksheetReadOnlyModel;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.cs3500.spreadsheets.cell.CellFormula;
-import edu.cs3500.spreadsheets.model.BasicWorksheetReadOnlyModel;
 import edu.cs3500.spreadsheets.model.Coord;
 
 /**

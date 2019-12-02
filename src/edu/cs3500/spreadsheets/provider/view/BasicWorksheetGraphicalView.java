@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.provider.view;
 
+import edu.cs3500.spreadsheets.provider.model.BasicWorksheetReadOnlyModel;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.BorderLayout;

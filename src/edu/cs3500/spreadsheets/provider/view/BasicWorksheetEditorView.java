@@ -1,14 +1,14 @@
 package edu.cs3500.spreadsheets.provider.view;
 
+import edu.cs3500.spreadsheets.provider.HighlightCell;
+import edu.cs3500.spreadsheets.provider.IFeatures;
+import edu.cs3500.spreadsheets.provider.model.BasicWorksheetReadOnlyModel;
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
-import edu.cs3500.spreadsheets.controller.HighlightCell;
-import edu.cs3500.spreadsheets.controller.IFeatures;
-import edu.cs3500.spreadsheets.model.BasicWorksheetReadOnlyModel;
 import edu.cs3500.spreadsheets.model.Coord;
 
 /**

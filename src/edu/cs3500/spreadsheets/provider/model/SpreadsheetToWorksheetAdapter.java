@@ -2,6 +2,7 @@ package edu.cs3500.spreadsheets.provider.model;
 
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
+import edu.cs3500.spreadsheets.provider.cell.CellFormula;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -24,6 +25,8 @@ public class SpreadsheetToWorksheetAdapter implements Worksheet {
   public CellFormula getCellAt(Coord location) {
     String contents = model.getRawValue(location);
     // convert to Cell Formula
+
+    return null;
   }
 
   @Override

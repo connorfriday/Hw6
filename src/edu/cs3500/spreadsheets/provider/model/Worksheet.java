@@ -1,9 +1,8 @@
 package edu.cs3500.spreadsheets.provider.model;
 
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.provider.cell.CellFormula;
 import java.util.HashMap;
-
-import edu.cs3500.spreadsheets.cell.CellFormula;
 
 /**
  * Represents a worksheet with cells.

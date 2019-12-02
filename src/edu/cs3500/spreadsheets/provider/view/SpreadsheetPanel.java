@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.provider.view;
 
+import edu.cs3500.spreadsheets.provider.model.BasicWorksheetReadOnlyModel;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -7,7 +8,6 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 
 
-import edu.cs3500.spreadsheets.model.BasicWorksheetReadOnlyModel;
 import edu.cs3500.spreadsheets.model.Coord;
 
 /**

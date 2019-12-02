@@ -60,15 +60,14 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
       }
     }
     if (!cells.containsKey(coord)) {
-      if(s.trim().isEmpty()) {
+      if (s.trim().isEmpty()) {
         this.evaluated.clear();
         return;
-      }
-      else {
+      } else {
         cells.put(coord, new Cell(s));
       }
     } else {
-      if(s.trim().isEmpty()) {
+      if (s.trim().isEmpty()) {
         cells.remove(coord);
         this.evaluated.clear();
         return;
@@ -91,7 +90,7 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
       if (cells.containsKey(curr)) {
         Cell cell = cells.get(curr);
         String str = cell.getContents();
-        if(str.charAt(0 )== '=') {
+        if (str.charAt(0) == '=') {
           str = str.substring(1);
         }
         for (Coord coord : Parser.parse(str).accept(new GetCoordReferences())) {
@@ -115,7 +114,7 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
   @Override
   public String getComputedValue(Coord coord) {
     String str = getRawValue(coord);
-    if(str.trim().isEmpty()) {
+    if (str.trim().isEmpty()) {
       return str;
     }
 
@@ -129,7 +128,7 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
       try {
         String s = getRawValue(coord);
         if (s.charAt(0) == '=') {
-         s = s.substring(1);
+          s = s.substring(1);
         }
 
         String res = parseAndEvaluate(s);

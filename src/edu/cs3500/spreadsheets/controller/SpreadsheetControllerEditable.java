@@ -39,7 +39,7 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
   @Override
   public void updateCellValue(Coord coord, String contents) {
     try {
-      if(contents.trim().isEmpty()) {
+      if (contents.trim().isEmpty()) {
         this.model.clearCell(coord);
       }
       this.model.setCell(contents, coord);
@@ -65,8 +65,8 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
   @Override
   public void saveFile(String destinationFile) {
     try {
-      if(!(destinationFile.length() > 4) ||
-          !destinationFile.substring(destinationFile.length() - 4).equals(".txt")) {
+      if (destinationFile.length() <= 4
+          || !destinationFile.substring(destinationFile.length() - 4).equals(".txt")) {
         view.displayMessage("Destination file must be .txt with name");
         return;
       }

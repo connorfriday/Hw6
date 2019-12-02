@@ -46,12 +46,13 @@ class CellPanel extends JPanel {
 
   /**
    * Constructs a cell panel with the cells from a spreadsheet, to be viewed.
-   * @param model model to display
-   * @param view view to display to
+   *
+   * @param model           model to display
+   * @param view            view to display to
    * @param cellsToBeShownX how many cells are in each row
    * @param cellsToBeShownY how many cells are in each column
-   * @param width width of screen dimensions
-   * @param height height of screen dimensions
+   * @param width           width of screen dimensions
+   * @param height          height of screen dimensions
    */
   CellPanel(SpreadsheetReadOnlyModel model, SpreadsheetView view,
       int cellsToBeShownX, int cellsToBeShownY, int width, int height) {
@@ -131,10 +132,9 @@ class CellPanel extends JPanel {
           JTextField tempTextField;
           try {
             Coord c = new Coord(x, y);
-            if(model.getRawValue(c).equals("")) {
+            if (model.getRawValue(c).equals("")) {
               tempTextField = new JTextField();
-            }
-            else {
+            } else {
               tempTextField = new JTextField(model.getComputedValue(c));
             }
           } catch (IllegalArgumentException e) {
@@ -151,7 +151,7 @@ class CellPanel extends JPanel {
               changeFocus(finalC);
             }
           });
-          if(focus != null && focus.equals(new Coord(x, y))) {
+          if (focus != null && focus.equals(new Coord(x, y))) {
             tempTextField.setBackground(Color.LIGHT_GRAY);
           }
           tempList.add(tempTextField);
@@ -243,8 +243,7 @@ class CellPanel extends JPanel {
       fillCells();
       displayCells();
       cellPanel.updateUI();
-    }
-    else if (finalC.row == furthestY - cellsToBeShownY) {
+    } else if (finalC.row == furthestY - cellsToBeShownY) {
       furthestY--;
       vBar.setValue(furthestY);
       cellPanel.removeAll();
@@ -260,8 +259,7 @@ class CellPanel extends JPanel {
       fillCells();
       displayCells();
       cellPanel.updateUI();
-    }
-    else if (finalC.col == furthestX - cellsToBeShownX) {
+    } else if (finalC.col == furthestX - cellsToBeShownX) {
       furthestX--;
       hBar.setValue(furthestX);
       cellPanel.removeAll();
@@ -278,7 +276,7 @@ class CellPanel extends JPanel {
       c.setBackground(Color.WHITE);
       c.updateUI();
     }
-    JComponent c = visibleCells.get(finalC.row  + cellsToBeShownY - furthestY).get(
+    JComponent c = visibleCells.get(finalC.row + cellsToBeShownY - furthestY).get(
         finalC.col + cellsToBeShownX - furthestX);
     c.setBackground(Color.LIGHT_GRAY);
     c.updateUI();
@@ -312,8 +310,7 @@ class CellPanel extends JPanel {
               return;
           }
           changeFocus(c);
-        }
-        catch (IllegalArgumentException ignored) {
+        } catch (IllegalArgumentException ignored) {
         }
       }
     });

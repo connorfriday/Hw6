@@ -19,6 +19,7 @@ import javax.swing.JTextField;
  * A GUI implementation of viewing a spreadsheet, able to make edits to the spreadsheet.
  */
 public class SpreadsheetEditableGUI extends SpreadsheetGUI {
+
   private SpreadsheetReadOnlyModel model;
   private Features features;
   private JTextField entryField;
@@ -26,6 +27,7 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
 
   /**
    * Constructs a spreadsheet GUI.
+   *
    * @param model Spreadsheet model to view
    */
   public SpreadsheetEditableGUI(SpreadsheetReadOnlyModel model) {
@@ -52,10 +54,9 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
     commitChange.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        if(entryField.getText().equals("")) {
+        if (entryField.getText().equals("")) {
           features.updateCellValue(currentCell, "");
-        }
-        else {
+        } else {
           features.updateCellValue(currentCell, entryField.getText());
         }
         cellPanel.repaintCell();
@@ -98,7 +99,7 @@ public class SpreadsheetEditableGUI extends SpreadsheetGUI {
             -1, null, options, null);
 
         if (choice == 0) {
-          String file =  JOptionPane.showInputDialog(SpreadsheetEditableGUI.this,
+          String file = JOptionPane.showInputDialog(SpreadsheetEditableGUI.this,
               "Save As:", "Save",
               JOptionPane.QUESTION_MESSAGE, null, null, ".txt").toString();
 

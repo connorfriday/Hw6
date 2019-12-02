@@ -30,7 +30,7 @@ public interface Features {
   void saveFile(String destinationFile);
 
   /**
-   * Clears the current cell
+   * Clears the given cell.
    * @param coord cell to clear
    */
   void clearCell(Coord coord);

@@ -3,6 +3,7 @@ package edu.cs3500.spreadsheets.provider.model;
 import edu.cs3500.spreadsheets.model.BasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
+import edu.cs3500.spreadsheets.provider.cell.CellBlank;
 import edu.cs3500.spreadsheets.provider.cell.CellFormula;
 import edu.cs3500.spreadsheets.sexp.Parser;
 import edu.cs3500.spreadsheets.sexp.Sexp;
@@ -35,6 +36,9 @@ public class BasicWorksheetModel implements Worksheet {
   public CellFormula getCellAt(Coord location) {
     //need to parse this, and then use it as a visitor
     String contents = model.getRawValue(location);
+    if(contents.isEmpty()) {
+      return new CellBlank("");
+    }
     Sexp sexp = Parser.parse(contents);
     return sexp.accept(new SexpToCellFormulaVisitor());
 

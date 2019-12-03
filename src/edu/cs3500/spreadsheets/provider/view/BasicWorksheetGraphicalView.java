@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.provider.view;
 
+import edu.cs3500.spreadsheets.provider.model.BasicWorksheetModel;
 import edu.cs3500.spreadsheets.provider.model.BasicWorksheetReadOnlyModel;
 import java.awt.Dimension;
 import java.awt.Color;
@@ -10,8 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 
-import edu.cs3500.spreadsheets.model.BasicWorksheetModel;
-import edu.cs3500.spreadsheets.model.BasicWorksheetReadOnlyModel;
 import edu.cs3500.spreadsheets.model.Coord;
 
 /**

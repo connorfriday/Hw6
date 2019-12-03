@@ -1,15 +1,19 @@
 package edu.cs3500.spreadsheets;
 
 import edu.cs3500.spreadsheets.controller.SpreadsheetController;
+import edu.cs3500.spreadsheets.controller.WorksheetController;
+import edu.cs3500.spreadsheets.controller.WorksheetControllerEditable;
 import edu.cs3500.spreadsheets.model.BasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.ReadOnlyBasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.BasicWorksheetBuilder;
-import edu.cs3500.spreadsheets.provider.model.SpreadsheetToWorksheetAdapter;
+import edu.cs3500.spreadsheets.provider.model.BasicWorksheetModel;
+import edu.cs3500.spreadsheets.provider.model.BasicWorksheetReadOnlyModel;
 import edu.cs3500.spreadsheets.provider.model.Worksheet;
 import edu.cs3500.spreadsheets.provider.view.BasicWorksheetEditorView;
+import edu.cs3500.spreadsheets.provider.view.BasicWorksheetView;
 import edu.cs3500.spreadsheets.view.SpreadsheetTextualView;
 import edu.cs3500.spreadsheets.view.SpreadsheetView;
 import edu.cs3500.spreadsheets.controller.SpreadsheetControllerEditable;
@@ -91,9 +95,12 @@ public class BeyondGood {
   }
 
   private static void provider(SpreadsheetModel model) {
-    Worksheet w = new SpreadsheetToWorksheetAdapter(model);
+    Worksheet w = new BasicWorksheetModel(model);
     BasicWorksheetReadOnlyModel row = new BasicWorksheetReadOnlyModel(w);
     BasicWorksheetView view = new BasicWorksheetEditorView(row);
+    WorksheetController c = new WorksheetControllerEditable();
+    c.start(row);
+
 
   }
 

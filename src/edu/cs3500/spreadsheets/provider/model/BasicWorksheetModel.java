@@ -1,19 +1,27 @@
 package edu.cs3500.spreadsheets.provider.model;
 
+import edu.cs3500.spreadsheets.model.BasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.provider.cell.CellFormula;
 import java.util.HashMap;
 import java.util.Set;
 
-public class SpreadsheetToWorksheetAdapter implements Worksheet {
+/**
+ * Adapter class to take a Spreadsheet model and turn it into a Worksheet.
+ */
+public class BasicWorksheetModel implements Worksheet {
   private final SpreadsheetModel model;
 
-  public SpreadsheetToWorksheetAdapter(SpreadsheetModel model) {
+  public BasicWorksheetModel(SpreadsheetModel model) {
     if (model == null) {
       throw new IllegalArgumentException("Can't be null.");
     }
     this.model = model;
+  }
+
+  public BasicWorksheetModel() {
+    model = new BasicSpreadsheetModel();
   }
 
   @Override

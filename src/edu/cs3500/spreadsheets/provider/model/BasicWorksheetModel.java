@@ -4,6 +4,8 @@ import edu.cs3500.spreadsheets.model.BasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.provider.cell.CellFormula;
+import edu.cs3500.spreadsheets.sexp.Parser;
+import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -31,10 +33,12 @@ public class BasicWorksheetModel implements Worksheet {
 
   @Override
   public CellFormula getCellAt(Coord location) {
+    //need to parse this, and then use it as a visitor
     String contents = model.getRawValue(location);
-    // convert to Cell Formula
+    Sexp sexp = Parser.parse(contents);
+    return sexp.accept(new SexpToCellFormulaVisitor());
 
-    return null;
+
   }
 
   @Override

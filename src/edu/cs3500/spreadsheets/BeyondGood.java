@@ -97,8 +97,9 @@ public class BeyondGood {
   private static void provider(SpreadsheetModel model) {
     Worksheet w = new BasicWorksheetModel(model);
     BasicWorksheetReadOnlyModel row = new BasicWorksheetReadOnlyModel(w);
-    BasicWorksheetView view = new BasicWorksheetEditorView(row);
     WorksheetController c = new WorksheetControllerEditable();
+    System.out.println("Worksheet: " + w.toString());
+    System.out.println("Read-Only: " + row.toString());
     c.start(row);
 
 

@@ -6,7 +6,7 @@ package edu.cs3500.spreadsheets.provider.view;
 public interface BasicWorksheetView {
 
   /**
-   * Renders a {@link edu.cs3500.spreadsheets.model.BasicWorksheetModel} in some manner.
+   * Renders a WorksheetModel in some manner.
    */
   void render();
 

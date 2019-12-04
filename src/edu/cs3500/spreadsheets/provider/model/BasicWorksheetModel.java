@@ -29,7 +29,7 @@ public class BasicWorksheetModel implements Worksheet {
 
   @Override
   public void editCell(String input, Coord location) {
-    model.setCell("", location);
+    model.setCell(input, location);
   }
 
   @Override

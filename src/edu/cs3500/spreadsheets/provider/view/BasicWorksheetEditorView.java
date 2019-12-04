@@ -40,7 +40,6 @@ public class BasicWorksheetEditorView extends JFrame implements BasicWorksheetVi
             this);
     this.spreadsheetView.spreadsheetPanel.addMouseListener(highlightedCell);
 
-    System.out.println(this.getHighlightedCell());
     this.buttonPanel.setTextField(this.modelToDisplayandEdit
             .getCellAt(this.getHighlightedCell()).getRawContents());
 

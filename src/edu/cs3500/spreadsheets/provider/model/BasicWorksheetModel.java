@@ -39,10 +39,14 @@ public class BasicWorksheetModel implements Worksheet {
     if(contents.isEmpty()) {
       return new CellBlank("");
     }
+
+    boolean hadEquals = false;
+    if (contents.charAt(0) == '=') {
+      hadEquals = true;
+      contents = contents.substring(1);
+    }
     Sexp sexp = Parser.parse(contents);
-    return sexp.accept(new SexpToCellFormulaVisitor());
-
-
+    return sexp.accept(new SexpToCellFormulaVisitor(location, this));
   }
 
   @Override

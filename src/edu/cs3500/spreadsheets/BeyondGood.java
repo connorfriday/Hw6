@@ -1,16 +1,12 @@
 package edu.cs3500.spreadsheets;
 
 import edu.cs3500.spreadsheets.controller.SpreadsheetController;
-import edu.cs3500.spreadsheets.controller.WorksheetControllerEditable;
 import edu.cs3500.spreadsheets.model.BasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.ReadOnlyBasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.BasicWorksheetBuilder;
-import edu.cs3500.spreadsheets.provider.model.BasicWorksheetModel;
-import edu.cs3500.spreadsheets.provider.model.BasicWorksheetReadOnlyModel;
-import edu.cs3500.spreadsheets.provider.model.Worksheet;
 import edu.cs3500.spreadsheets.view.SpreadsheetTextualView;
 import edu.cs3500.spreadsheets.view.SpreadsheetView;
 import edu.cs3500.spreadsheets.controller.SpreadsheetControllerEditable;
@@ -47,11 +43,6 @@ public class BeyondGood {
         gui(model);
         return;
       }
-      else if (primaryCommand.equals("-provider")) {
-        model = new BasicSpreadsheetModel();
-        provider(model);
-        return;
-      }
       else if (primaryCommand.equals("-edit")) {
         model = new BasicSpreadsheetModel();
         edit(model);
@@ -75,9 +66,6 @@ public class BeyondGood {
           case "-edit":
             edit(model);
             return;
-          case "-provider":
-            provider(model);
-            return;
           default:
             throw new InvalidCommandException("Unrecognized command. Supports -eval, -save, -gui");
         }
@@ -91,10 +79,7 @@ public class BeyondGood {
     }
   }
 
-  private static void provider(SpreadsheetModel model) {
-    SpreadsheetController c = new WorksheetControllerEditable();
-    c.start(model);
-  }
+
 
   // given a model, creates an editable GUI view and renders the veiw
   private static void edit(SpreadsheetModel model) {

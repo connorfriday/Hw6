@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.sexp.EvaluateSexp;
+import edu.cs3500.spreadsheets.sexp.GetColumnReferences;
 import edu.cs3500.spreadsheets.sexp.GetCoordReferences;
 import edu.cs3500.spreadsheets.sexp.Parser;
 import edu.cs3500.spreadsheets.sexp.Sexp;
@@ -82,7 +83,10 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
     Sexp exp = Parser.parse(s);
     Set<Coord> refs = new HashSet<>();
     Stack<Coord> stack = new Stack<>();
+    //add all normal coord references
     stack.addAll(exp.accept(new GetCoordReferences()));
+    //add all column references
+    stack.addAll(exp.accept(new GetColumnReferences(new ReadOnlyBasicSpreadsheetModel(this))));
     while (!stack.isEmpty()) {
       Coord curr = stack.pop();
       refs.add(curr);

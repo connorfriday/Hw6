@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.sexp;
 
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.ReadOnlyBasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetFunction;
 
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
@@ -71,6 +72,8 @@ public class EvaluateSexp implements SexpVisitor<String> {
     }
     else {
       List<Coord> refs = Parser.parse(s).accept(new GetCoordReferences());
+      refs.addAll(Parser.parse(s).accept(
+          new GetColumnReferences(new ReadOnlyBasicSpreadsheetModel(sheet))));
       if (refs.size() == 0) {
         return s;
       }

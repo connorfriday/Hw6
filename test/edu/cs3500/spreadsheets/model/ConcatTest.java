@@ -36,7 +36,7 @@ public class ConcatTest {
     list.add(new SString(" "));
     list.add(new SString("World"));
     list.add(new SString("!"));
-    assertEquals(func.evaluate(list), "Hello World!");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "Hello World!");
   }
 
   @Test
@@ -47,7 +47,7 @@ public class ConcatTest {
     list.add(new SNumber(2.0));
     list.add(new SNumber(3.0));
     list.add(new SNumber(4.0));
-    assertEquals(func.evaluate(list), "1.0000002.0000003.0000004.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "1.0000002.0000003.0000004.000000");
   }
 
   @Test
@@ -58,7 +58,7 @@ public class ConcatTest {
     list.add(new SBoolean(true));
     list.add(new SBoolean(false));
     list.add(new SBoolean(true));
-    assertEquals(func.evaluate(list), "truetruefalsetrue");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "truetruefalsetrue");
   }
 
   @Test
@@ -71,7 +71,7 @@ public class ConcatTest {
     list.add(new SString("World"));
     list.add(new SNumber(3.0));
     list.add(new SBoolean(true));
-    assertEquals(func.evaluate(list), "Hello3.000000trueWorld3.000000true");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "Hello3.000000trueWorld3.000000true");
   }
 
   @Test
@@ -88,7 +88,7 @@ public class ConcatTest {
     list.add(new SSymbol("A2"));
     list.add(new SSymbol("A3"));
     list.add(new SSymbol("A4"));
-    assertEquals(func.evaluate(list), "Hi54.000000truecar");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "Hi54.000000truecar");
   }
 
   @Test
@@ -108,7 +108,7 @@ public class ConcatTest {
     list.add(new SSymbol("A3"));
     list.add(new SNumber(4.0));
     list.add(new SSymbol("A4"));
-    assertEquals(func.evaluate(list), "HiHello54.000000truetrue4.000000car");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "HiHello54.000000truetrue4.000000car");
   }
 
   @Test
@@ -123,7 +123,7 @@ public class ConcatTest {
     list.add(new SSymbol("A3"));
     list.add(new SNumber(4.0));
     list.add(new SSymbol("A4"));
-    assertEquals(func.evaluate(list), "Hellotrue4.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "Hellotrue4.000000");
   }
 
   @Test
@@ -139,7 +139,7 @@ public class ConcatTest {
     list.add(new SString("Hello"));
     list.add(new SBoolean(true));
     list.add(new SNumber(4.0));
-    assertEquals(func.evaluate(list), "trueHellotrue4.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "trueHellotrue4.000000");
   }
 
   @Test
@@ -153,7 +153,7 @@ public class ConcatTest {
     sheet.setCell("\"car\"", new Coord("B1"));
     ArrayList<Sexp> list = new ArrayList<>();
     list.add(new SSymbol("A1:B4"));
-    assertEquals(func.evaluate(list), "Hicar54.000000truecar");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "Hicar54.000000truecar");
   }
 
   @Test
@@ -167,7 +167,7 @@ public class ConcatTest {
     SpreadsheetModel sheet = new BasicSpreadsheetModel();
     SpreadsheetFunction func = new Concat(sheet.getFunctions(), sheet);
     ArrayList<Sexp> list = new ArrayList<>();
-    assertEquals(func.evaluate(list), "");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "");
   }
 
   @Test

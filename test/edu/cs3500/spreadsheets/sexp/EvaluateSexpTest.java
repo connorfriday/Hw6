@@ -17,28 +17,28 @@ public class EvaluateSexpTest {
   @Test
   public void visitBoolean() {
     BasicSpreadsheetModel m = new BasicSpreadsheetModel();
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals(Boolean.toString(true), e.visitBoolean(true));
   }
 
   @Test
   public void visitBoolean2() {
     BasicSpreadsheetModel m = new BasicSpreadsheetModel();
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals(Boolean.toString(false), e.visitBoolean(false));
   }
 
   @Test
   public void visitNumber() {
     BasicSpreadsheetModel m = new BasicSpreadsheetModel();
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("1.0", e.visitNumber(1));
   }
 
   @Test
   public void visitNumber2() {
     BasicSpreadsheetModel m = new BasicSpreadsheetModel();
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("2.5", e.visitNumber(2.5));
   }
 
@@ -49,7 +49,7 @@ public class EvaluateSexpTest {
     list.add(new SSymbol("SUM"));
     list.add(new SSymbol("1"));
     list.add(new SSymbol("2"));
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("3.0", e.visitSList(list));
   }
 
@@ -63,7 +63,7 @@ public class EvaluateSexpTest {
     list.add(new SSymbol("2"));
     m.setCell("3", new Coord(1, 1));
     list.add(new SSymbol("A1"));
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("6.0", e.visitSList(list));
   }
 
@@ -77,7 +77,7 @@ public class EvaluateSexpTest {
     m.setCell("3", new Coord(1, 1));
     m.setCell("3", new Coord(1, 2));
     list.add(new SSymbol("A1:A2"));
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("9.0", e.visitSList(list));
   }
 
@@ -91,7 +91,7 @@ public class EvaluateSexpTest {
     m.setCell("3", new Coord(1, 1));
     m.setCell("3", new Coord(1, 2));
     list.add(new SSymbol("A1:A2"));
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("9.0", e.visitSList(new ArrayList<>()));
   }
 
@@ -105,7 +105,7 @@ public class EvaluateSexpTest {
     m.setCell("3", new Coord(1, 1));
     m.setCell("3", new Coord(1, 2));
     list.add(new SSymbol("A1:A2"));
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("9.0", e.visitSList(new ArrayList<>()));
   }
 
@@ -119,7 +119,7 @@ public class EvaluateSexpTest {
     m.setCell("3", new Coord(1, 1));
     m.setCell("3", new Coord(1, 2));
     list.add(new SSymbol("A1:A2"));
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("SUM", e.visitSymbol(list.get(0).toString()));
   }
 
@@ -133,7 +133,7 @@ public class EvaluateSexpTest {
     m.setCell("3", new Coord(1, 1));
     m.setCell("3", new Coord(1, 2));
     list.add(new SSymbol("A1:A2"));
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("1", e.visitSymbol(list.get(1).toString()));
   }
 
@@ -148,7 +148,7 @@ public class EvaluateSexpTest {
     m.setCell("3", new Coord(1, 2));
     list.add(new SSymbol("A1"));
     list.add(new SSymbol("A1:A2"));
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("3.0", e.visitSymbol(list.get(3).toString()));
   }
 
@@ -163,7 +163,8 @@ public class EvaluateSexpTest {
     m.setCell("3", new Coord(1, 2));
     list.add(new SSymbol("A1"));
     list.add(new SSymbol("A1:A2"));
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, new Sum(m.getFunctions(), m));
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, new Sum(m.getFunctions(), m),
+        new ArrayList<>());
     assertEquals("6.0", e.visitSymbol(list.get(4).toString()));
   }
 
@@ -178,7 +179,7 @@ public class EvaluateSexpTest {
     m.setCell("3", new Coord(1, 2));
     list.add(new SSymbol("A1"));
     list.add(new SSymbol("A1:A2"));
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("6.0", e.visitSymbol(list.get(4).toString()));
   }
 
@@ -186,7 +187,7 @@ public class EvaluateSexpTest {
   @Test
   public void visitString() {
     BasicSpreadsheetModel m = new BasicSpreadsheetModel();
-    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null);
+    EvaluateSexp e = new EvaluateSexp(m.getFunctions(), m, null, new ArrayList<>());
     assertEquals("JO", e.visitString("JO"));
   }
 

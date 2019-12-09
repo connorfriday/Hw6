@@ -32,10 +32,10 @@ public class Sum implements SpreadsheetFunction {
   }
 
   @Override
-  public String evaluate(List<Sexp> list) {
+  public String evaluate(List<Sexp> list, List<Coord> visited) {
     double result = 0;
     for (Sexp s : list) {
-      String val = s.accept(new EvaluateSexp(functions, sheet, this));
+      String val = s.accept(new EvaluateSexp(functions, sheet, this, visited));
       try {
         if (!val.equals("")) {
           double num = Double.parseDouble(val);

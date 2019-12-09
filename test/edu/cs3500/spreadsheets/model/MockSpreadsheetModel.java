@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -44,6 +45,11 @@ public class MockSpreadsheetModel implements SpreadsheetModel {
   @Override
   public String getComputedValue(Coord coord) {
     return model.getComputedValue(coord);
+  }
+
+  @Override
+  public String getComputedValue(List<Coord> visited, Coord coord) {
+    return model.getComputedValue(visited, coord);
   }
 
   @Override

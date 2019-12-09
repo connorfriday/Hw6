@@ -5,8 +5,10 @@ import edu.cs3500.spreadsheets.sexp.GetColumnReferences;
 import edu.cs3500.spreadsheets.sexp.GetCoordReferences;
 import edu.cs3500.spreadsheets.sexp.Parser;
 import edu.cs3500.spreadsheets.sexp.Sexp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -52,10 +54,6 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
             + ": " + e.getMessage());
       }
 
-      if (getAllReferences(s).contains(coord)) {
-        throw new IllegalArgumentException("This update will create a cycle");
-      }
-
       if (hasEquals) {
         s = "=" + s;
       }
@@ -77,6 +75,13 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
       c.updateContents(s);
     }
     this.evaluated.clear();
+
+    try {
+      this.getComputedValue(coord);
+    }
+    catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("This update will create a cycle");
+    }
   }
 
   private Set<Coord> getAllReferences(String s) {
@@ -117,6 +122,18 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
 
   @Override
   public String getComputedValue(Coord coord) {
+   return getComputedValue(new ArrayList<>(), coord);
+  }
+
+  @Override
+  public String getComputedValue(List<Coord> visited, Coord coord) {
+    if (visited.contains(coord)) {
+      throw new IllegalArgumentException("A cycle exists.");
+    }
+
+    ArrayList<Coord> newVis = new ArrayList<>(visited);
+    newVis.add(coord);
+
     String str = getRawValue(coord);
     if (str.trim().isEmpty()) {
       return str;
@@ -135,7 +152,7 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
           s = s.substring(1);
         }
 
-        String res = parseAndEvaluate(s);
+        String res = parseAndEvaluate(newVis, s);
         evaluated.put(coord, res);
         return res;
       } catch (IllegalArgumentException e) {
@@ -146,12 +163,12 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
     }
   }
 
-  private String parseAndEvaluate(String s) {
+  private String parseAndEvaluate(List<Coord> visited, String s) {
     if (s.substring(0, 1).equals("=")) {
       s = s.substring(1);
     }
     return Parser.parse(s).accept(
-        new EvaluateSexp(functions, this, null));
+        new EvaluateSexp(functions, this, null, visited));
   }
 
   @Override

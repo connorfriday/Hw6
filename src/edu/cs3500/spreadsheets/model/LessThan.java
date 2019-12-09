@@ -32,13 +32,13 @@ public class LessThan implements SpreadsheetFunction {
   }
 
   @Override
-  public String evaluate(List<Sexp> list) {
+  public String evaluate(List<Sexp> list, List<Coord> visited) {
     if (list.size() != 2) {
       throw new IllegalArgumentException("2 arguments expected for less than");
     }
 
-    String firstS = list.get(0).accept(new EvaluateSexp(functions, sheet, this));
-    String secondS = list.get(1).accept(new EvaluateSexp(functions, sheet, this));
+    String firstS = list.get(0).accept(new EvaluateSexp(functions, sheet, this, visited));
+    String secondS = list.get(1).accept(new EvaluateSexp(functions, sheet, this, visited));
     try {
       double first = Double.parseDouble(firstS);
       double second = Double.parseDouble(secondS);

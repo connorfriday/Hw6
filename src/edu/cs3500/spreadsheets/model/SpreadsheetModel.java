@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,6 +35,14 @@ public interface SpreadsheetModel {
    * @return the raw string value representing the contents of that object
    */
   String getComputedValue(Coord coord);
+
+  /**
+   * This method gets the computed value of a cell as a string object.
+   * @param coord a Coord object representing 1-indexed coordinates of the cell
+   * @param visited any coordinates that have already been visited in the current eval job
+   * @return the raw string value representing the contents of that object
+   */
+  String getComputedValue(List<Coord> visited, Coord coord);
 
   /**
    * This method gets a map of which functions are supported within BasicSpreadsheetModel.

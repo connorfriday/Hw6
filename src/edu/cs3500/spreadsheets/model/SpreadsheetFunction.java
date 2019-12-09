@@ -11,9 +11,10 @@ public interface SpreadsheetFunction {
   /**
    * Performs the function.
    * @param list the given arguments as Sexp
+   * @param visited any coords visited in current eval job
    * @return the evaluated value the function represented as a string
    */
-  String evaluate(List<Sexp> list);
+  String evaluate(List<Sexp> list, List<Coord> visited);
 
   /**
    * Gets the name of a function for use as a key in a map.

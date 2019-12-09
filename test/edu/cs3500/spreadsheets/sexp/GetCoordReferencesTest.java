@@ -29,7 +29,7 @@ public class GetCoordReferencesTest {
   @Test
   public void visitSList() {
     GetCoordReferences g = new GetCoordReferences();
-    List<Coord> l = new ArrayList<Coord>();
+    List<Coord> l = new ArrayList<>();
     l.add(new Coord(1, 1));
     List<Sexp> l2 = new ArrayList<>();
     SSymbol s = new SSymbol("A1");
@@ -40,7 +40,7 @@ public class GetCoordReferencesTest {
   @Test
   public void visitSList2() {
     GetCoordReferences g = new GetCoordReferences();
-    List<Coord> l = new ArrayList<Coord>();
+    List<Coord> l = new ArrayList<>();
     l.add(new Coord(1, 1));
     l.add(new Coord(1, 2));
     List<Sexp> l2 = new ArrayList<>();
@@ -55,7 +55,7 @@ public class GetCoordReferencesTest {
   @Test
   public void visitSymbol() {
     GetCoordReferences g = new GetCoordReferences();
-    List<Coord> l = new ArrayList<Coord>();
+    List<Coord> l = new ArrayList<>();
     l.add(new Coord(1, 1));
     assertEquals(l, g.visitSymbol("A1"));
   }
@@ -63,7 +63,7 @@ public class GetCoordReferencesTest {
   @Test
   public void visitSymbol2() {
     GetCoordReferences g = new GetCoordReferences();
-    List<Coord> l = new ArrayList<Coord>();
+    List<Coord> l = new ArrayList<>();
     l.add(new Coord(1, 1));
     l.add(new Coord(1,2));
     assertEquals(l, g.visitSymbol("A1:A2"));

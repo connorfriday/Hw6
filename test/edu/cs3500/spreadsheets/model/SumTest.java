@@ -36,7 +36,7 @@ public class SumTest {
     list.add(new SString(" "));
     list.add(new SString("World"));
     list.add(new SString("!"));
-    func.evaluate(list);
+    func.evaluate(list, new ArrayList<>());
   }
 
   @Test
@@ -47,7 +47,7 @@ public class SumTest {
     list.add(new SNumber(2.0));
     list.add(new SNumber(3.0));
     list.add(new SNumber(4.0));
-    assertEquals(func.evaluate(list), "10.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "10.000000");
   }
 
   @Test (expected = IllegalArgumentException.class)
@@ -58,7 +58,7 @@ public class SumTest {
     list.add(new SBoolean(true));
     list.add(new SBoolean(false));
     list.add(new SBoolean(true));
-    func.evaluate(list);
+    func.evaluate(list, new ArrayList<>());
   }
 
   @Test (expected = IllegalArgumentException.class)
@@ -71,7 +71,7 @@ public class SumTest {
     list.add(new SString("World"));
     list.add(new SNumber(3.0));
     list.add(new SBoolean(true));
-    func.evaluate(list);
+    func.evaluate(list, new ArrayList<>());
   }
 
   @Test
@@ -88,7 +88,7 @@ public class SumTest {
     list.add(new SSymbol("A2"));
     list.add(new SSymbol("A3"));
     list.add(new SSymbol("A4"));
-    assertEquals(func.evaluate(list), "64.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "64.000000");
   }
 
   @Test (expected = IllegalArgumentException.class)
@@ -105,7 +105,7 @@ public class SumTest {
     list.add(new SSymbol("A2"));
     list.add(new SSymbol("A3"));
     list.add(new SSymbol("A4"));
-    func.evaluate(list);
+    func.evaluate(list, new ArrayList<>());
   }
 
   @Test (expected = IllegalArgumentException.class)
@@ -125,7 +125,7 @@ public class SumTest {
     list.add(new SSymbol("A3"));
     list.add(new SNumber(4.0));
     list.add(new SSymbol("A4"));
-    func.evaluate(list);
+    func.evaluate(list, new ArrayList<>());
   }
 
   @Test
@@ -134,7 +134,7 @@ public class SumTest {
     SpreadsheetFunction func = new Sum(sheet.getFunctions(), sheet);
     ArrayList<Sexp> list = new ArrayList<>();
     list.add(new SSymbol("A1"));
-    assertEquals(func.evaluate(list), "0.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "0.000000");
   }
 
   @Test
@@ -148,7 +148,7 @@ public class SumTest {
     list.add(new SNumber(4.0));
     list.add(new SSymbol("A4"));
     list.add(new SNumber(9.0));
-    assertEquals(func.evaluate(list), "13.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "13.000000");
   }
 
   @Test
@@ -163,7 +163,7 @@ public class SumTest {
     list.add(new SList(innerList));
     list.add(new SNumber(4.0));
     list.add(new SNumber(16.0));
-    assertEquals(func.evaluate(list), "33.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "33.000000");
   }
 
   @Test
@@ -172,7 +172,7 @@ public class SumTest {
     SpreadsheetFunction func = new Sum(sheet.getFunctions(), sheet);
     ArrayList<Sexp> list = new ArrayList<>();
     list.add(new SNumber(4.0));
-    assertEquals(func.evaluate(list), "4.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "4.000000");
   }
 
   @Test
@@ -182,7 +182,7 @@ public class SumTest {
     ArrayList<Sexp> list = new ArrayList<>();
     list.add(new SNumber(4.0));
     list.add(new SNumber(16.0));
-    assertEquals(func.evaluate(list), "20.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "20.000000");
   }
 
   @Test
@@ -193,7 +193,7 @@ public class SumTest {
     list.add(new SNumber(4.0));
     list.add(new SNumber(16.0));
     list.add(new SNumber(6.0));
-    assertEquals(func.evaluate(list), "26.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "26.000000");
   }
 
   @Test
@@ -207,7 +207,7 @@ public class SumTest {
     sheet.setCell("2", new Coord("B1"));
     ArrayList<Sexp> list = new ArrayList<>();
     list.add(new SSymbol("A1:B4"));
-    assertEquals(func.evaluate(list), "62.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "62.000000");
   }
 
   @Test
@@ -215,7 +215,7 @@ public class SumTest {
     SpreadsheetModel sheet = new BasicSpreadsheetModel();
     SpreadsheetFunction func = new Sum(sheet.getFunctions(), sheet);
     ArrayList<Sexp> list = new ArrayList<>();
-    assertEquals(func.evaluate(list), "0.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "0.000000");
   }
 
   @Test

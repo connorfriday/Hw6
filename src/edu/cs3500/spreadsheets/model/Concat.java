@@ -29,16 +29,17 @@ public class Concat implements SpreadsheetFunction {
     if (sheet == null) {
       throw new IllegalArgumentException("Spreadsheet cannot be null");
     }
+
     this.functions = functions;
     this.sheet = sheet;
   }
 
 
   @Override
-  public String evaluate(List<Sexp> list) {
+  public String evaluate(List<Sexp> list, List<Coord> visited) {
     StringBuilder result = new StringBuilder();
     for (Sexp s : list) {
-      String val = s.accept(new EvaluateSexp(functions, sheet, this));
+      String val = s.accept(new EvaluateSexp(functions, sheet, this, visited));
       result.append(val);
     }
     return result.toString();

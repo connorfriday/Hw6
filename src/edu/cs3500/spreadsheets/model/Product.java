@@ -32,11 +32,11 @@ public class Product implements SpreadsheetFunction {
   }
 
   @Override
-  public String evaluate(List<Sexp> list) {
+  public String evaluate(List<Sexp> list, List<Coord> visited) {
     double result = 0;
     boolean isFirst = true;
     for (Sexp s : list) {
-      String val = s.accept(new EvaluateSexp(functions, sheet, this));
+      String val = s.accept(new EvaluateSexp(functions, sheet, this, visited));
       try {
         if (!val.equals("")) {
           if (isFirst) {

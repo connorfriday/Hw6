@@ -36,7 +36,7 @@ public class ProductTest {
     list.add(new SString(" "));
     list.add(new SString("World"));
     list.add(new SString("!"));
-    func.evaluate(list);
+    func.evaluate(list, new ArrayList<>());
   }
 
   @Test
@@ -47,7 +47,7 @@ public class ProductTest {
     list.add(new SNumber(2.0));
     list.add(new SNumber(3.0));
     list.add(new SNumber(4.0));
-    assertEquals(func.evaluate(list), "24.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "24.000000");
   }
 
   @Test (expected = IllegalArgumentException.class)
@@ -58,7 +58,7 @@ public class ProductTest {
     list.add(new SBoolean(true));
     list.add(new SBoolean(false));
     list.add(new SBoolean(true));
-    func.evaluate(list);
+    func.evaluate(list, new ArrayList<>());
   }
 
   @Test (expected = IllegalArgumentException.class)
@@ -71,7 +71,7 @@ public class ProductTest {
     list.add(new SString("World"));
     list.add(new SNumber(3.0));
     list.add(new SBoolean(true));
-    func.evaluate(list);
+    func.evaluate(list, new ArrayList<>());
   }
 
   @Test
@@ -88,7 +88,7 @@ public class ProductTest {
     list.add(new SSymbol("A2"));
     list.add(new SSymbol("A3"));
     list.add(new SSymbol("A4"));
-    assertEquals(func.evaluate(list), "96.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "96.000000");
   }
 
   @Test (expected = IllegalArgumentException.class)
@@ -105,7 +105,7 @@ public class ProductTest {
     list.add(new SSymbol("A2"));
     list.add(new SSymbol("A3"));
     list.add(new SSymbol("A4"));
-    func.evaluate(list);
+    func.evaluate(list, new ArrayList<>());
   }
 
   @Test (expected = IllegalArgumentException.class)
@@ -125,7 +125,7 @@ public class ProductTest {
     list.add(new SSymbol("A3"));
     list.add(new SNumber(4.0));
     list.add(new SSymbol("A4"));
-    func.evaluate(list);
+    func.evaluate(list, new ArrayList<>());
   }
 
   @Test
@@ -139,7 +139,7 @@ public class ProductTest {
     list.add(new SNumber(4.0));
     list.add(new SSymbol("A4"));
     list.add(new SNumber(9.0));
-    assertEquals(func.evaluate(list), "36.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "36.000000");
   }
 
   @Test
@@ -148,7 +148,7 @@ public class ProductTest {
     SpreadsheetFunction func = new Product(sheet.getFunctions(), sheet);
     ArrayList<Sexp> list = new ArrayList<>();
     list.add(new SSymbol("A1"));
-    assertEquals(func.evaluate(list), "0.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "0.000000");
   }
 
   @Test
@@ -156,7 +156,7 @@ public class ProductTest {
     SpreadsheetModel sheet = new BasicSpreadsheetModel();
     SpreadsheetFunction func = new Product(sheet.getFunctions(), sheet);
     ArrayList<Sexp> list = new ArrayList<>();
-    assertEquals(func.evaluate(list), "0.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "0.000000");
   }
 
   @Test
@@ -170,7 +170,7 @@ public class ProductTest {
     sheet.setCell("2", new Coord("B1"));
     ArrayList<Sexp> list = new ArrayList<>();
     list.add(new SSymbol("A1:B4"));
-    assertEquals(func.evaluate(list), "648.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "648.000000");
   }
 
   @Test
@@ -185,7 +185,7 @@ public class ProductTest {
     list.add(new SList(innerList));
     list.add(new SNumber(4.0));
     list.add(new SNumber(16.0));
-    assertEquals(func.evaluate(list), "832.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "832.000000");
   }
 
   @Test
@@ -194,7 +194,7 @@ public class ProductTest {
     SpreadsheetFunction func = new Product(sheet.getFunctions(), sheet);
     ArrayList<Sexp> list = new ArrayList<>();
     list.add(new SNumber(4.0));
-    assertEquals(func.evaluate(list), "4.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "4.000000");
   }
 
   @Test
@@ -204,7 +204,7 @@ public class ProductTest {
     ArrayList<Sexp> list = new ArrayList<>();
     list.add(new SNumber(4.0));
     list.add(new SNumber(16.0));
-    assertEquals(func.evaluate(list), "64.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "64.000000");
   }
 
   @Test
@@ -215,7 +215,7 @@ public class ProductTest {
     list.add(new SNumber(4.0));
     list.add(new SNumber(16.0));
     list.add(new SNumber(6.0));
-    assertEquals(func.evaluate(list), "384.000000");
+    assertEquals(func.evaluate(list, new ArrayList<>()), "384.000000");
   }
 
   @Test

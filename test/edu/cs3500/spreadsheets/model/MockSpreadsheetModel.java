@@ -61,4 +61,24 @@ public class MockSpreadsheetModel implements SpreadsheetModel {
   public Set<Coord> getNonEmptyCoordinates() {
     return model.getNonEmptyCoordinates();
   }
+
+  @Override
+  public void addGraph(String type, String name, String refs) {
+
+  }
+
+  @Override
+  public void removeGraph(String name) {
+
+  }
+
+  @Override
+  public Map<String, SpreadsheetGraph> getGraphs() {
+    return null;
+  }
+
+  @Override
+  public Set<String> getGraphTypes() {
+    return null;
+  }
 }

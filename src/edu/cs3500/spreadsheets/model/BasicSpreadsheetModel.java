@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.function.Function;
 
 /**
  * A class representing a basic spreadsheet implementing the SpreadsheetModel interface.
@@ -19,6 +20,8 @@ import java.util.Stack;
 public class BasicSpreadsheetModel implements SpreadsheetModel {
 
   private final HashMap<Coord, Cell> cells;
+  private final Map<String, Function<String[], SpreadsheetGraph>> graphBuilders;
+  private final Map<String, SpreadsheetGraph> graphs;
   private final Map<String, SpreadsheetFunction> functions = new HashMap<>();
   private final Map<Coord, String> evaluated = new HashMap<>();
 
@@ -27,7 +30,10 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
    */
   public BasicSpreadsheetModel() {
     this.cells = new HashMap<>();
+    this.graphs = new HashMap<>();
+    this.graphBuilders = new HashMap<>();
     this.setFunctions();
+    this.setGraphs();
   }
 
   @Override
@@ -190,5 +196,43 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
     functions.put("PRODUCT", new Product(functions, this));
     functions.put("CONCAT", new Concat(functions, this));
     functions.put("<", new LessThan(functions, this));
+  }
+
+  private void setGraphs() {
+    graphBuilders.put("LINE", (String[] info) -> {return new LineGraph(info[0], info[1]);});
+  }
+
+  @Override
+  public void addGraph(String type, String name, String refs) {
+    if (name.contains(" ") || name.contains("\n")) {
+      throw new IllegalArgumentException("name cannot contain a space character");
+    }
+    if(graphs.containsKey(name)) {
+      throw new IllegalArgumentException("Cannot have two graphs with the same name");
+    }
+
+    if (!graphBuilders.containsKey(type)) {
+      throw new IllegalArgumentException("Unsupported graph type.");
+    }
+    String[] args = new String[2];
+    args[0] = name;
+    args[1] = refs;
+
+    graphs.put(name, graphBuilders.get(type).apply(args));
+  }
+
+  @Override
+  public void removeGraph(String name) {
+    this.graphs.remove(name);
+  }
+
+  @Override
+  public Map<String, SpreadsheetGraph> getGraphs() {
+    return graphs;
+  }
+
+  @Override
+  public Set<String> getGraphTypes() {
+    return graphBuilders.keySet();
   }
 }

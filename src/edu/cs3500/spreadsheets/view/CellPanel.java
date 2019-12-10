@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.view;
 
+
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
 import java.awt.BorderLayout;
@@ -22,6 +23,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+
 
 /**
  * A panel that contains the cells of a spreadsheet.

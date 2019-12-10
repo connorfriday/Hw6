@@ -33,4 +33,8 @@ public interface SpreadsheetReadOnlyModel {
    * @return a list containing coordinates of all non-empty cells
    */
   Set<Coord> getNonEmptyCoordinates();
+
+  Map<String, SpreadsheetGraph> getGraphs();
+
+  Set<String> getGraphTypes();
 }

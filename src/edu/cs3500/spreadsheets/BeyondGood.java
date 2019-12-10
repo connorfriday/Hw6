@@ -3,6 +3,7 @@ package edu.cs3500.spreadsheets;
 import edu.cs3500.spreadsheets.controller.SpreadsheetController;
 import edu.cs3500.spreadsheets.model.BasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.GraphEnabledWorksheetReader;
 import edu.cs3500.spreadsheets.model.ReadOnlyBasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
@@ -149,7 +150,7 @@ public class BeyondGood {
       if (!errors.equals("")) {
         throw new InvalidCommandException(errors);
       }
-      return WorksheetReader.read(builder, file);
+      return GraphEnabledWorksheetReader.read(builder, file);
     }
     catch (FileNotFoundException e) {
       throw new InvalidCommandException("Unable to read file.");

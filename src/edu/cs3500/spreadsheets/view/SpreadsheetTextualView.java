@@ -2,8 +2,10 @@ package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.SpreadsheetGraph;
 import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * This is a textual view for a spreadsheet model. Represents non-empty cells in the format (cell
@@ -40,6 +42,11 @@ public class SpreadsheetTextualView implements SpreadsheetView {
   public void render() throws IOException {
     for (Coord c : model.getNonEmptyCoordinates()) {
       out.append(c.toString() + " " + model.getRawValue(c) + "\n");
+    }
+    out.append("/GRAPHS/\n");
+    Map<String, SpreadsheetGraph> graphs = model.getGraphs();
+    for (SpreadsheetGraph graph : graphs.values()) {
+      out.append(graph.getType() + " " + graph.getName() + " " + graph.getRefs() + "\n");
     }
   }
 

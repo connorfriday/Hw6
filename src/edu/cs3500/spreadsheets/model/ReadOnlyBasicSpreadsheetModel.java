@@ -37,4 +37,15 @@ public class ReadOnlyBasicSpreadsheetModel implements SpreadsheetReadOnlyModel {
   public Set<Coord> getNonEmptyCoordinates() {
     return model.getNonEmptyCoordinates();
   }
+
+  @Override
+  public Map<String, SpreadsheetGraph> getGraphs() {
+    return model.getGraphs();
+  }
+
+  @Override
+  public Set<String> getGraphTypes() {
+    return model.getGraphTypes();
+  }
+
 }

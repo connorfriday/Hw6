@@ -1,12 +1,14 @@
 package edu.cs3500.spreadsheets.controller;
 
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.GraphEnabledWorksheetReader;
 import edu.cs3500.spreadsheets.model.ReadOnlyBasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.BasicWorksheetBuilder;
 import edu.cs3500.spreadsheets.view.SpreadsheetEditableGUI;
+import edu.cs3500.spreadsheets.view.SpreadsheetEditableGraph;
 import edu.cs3500.spreadsheets.view.SpreadsheetTextualView;
 import edu.cs3500.spreadsheets.view.SpreadsheetView;
 import java.io.FileNotFoundException;
@@ -26,7 +28,7 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
   public void start(SpreadsheetModel model) {
     this.model = model;
     this.rom = new ReadOnlyBasicSpreadsheetModel(model);
-    this.view = new SpreadsheetEditableGUI(rom);
+    this.view = new SpreadsheetEditableGraph(rom);
     view.setFeatures(this);
     try {
       view.render();
@@ -53,7 +55,7 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
   public SpreadsheetModel loadFile(String sourceFile) {
     try {
       SpreadsheetModel model =
-          WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader(sourceFile));
+          GraphEnabledWorksheetReader.read(new BasicWorksheetBuilder(), new FileReader(sourceFile));
       this.start(model);
     }
     catch (IOException e) {
@@ -86,5 +88,20 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
   @Override
   public void clearCell(Coord coord) {
     this.model.clearCell(coord);
+  }
+
+  @Override
+  public void removeGraph(String graph) {
+    model.removeGraph(graph);
+  }
+
+  @Override
+  public void addGraph(String type, String name, String refs) {
+    try {
+      model.addGraph(type, name, refs);
+    }
+    catch (IllegalArgumentException e) {
+      this.view.displayMessage(e.getMessage());
+    }
   }
 }

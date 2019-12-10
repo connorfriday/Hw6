@@ -35,4 +35,8 @@ public interface Features {
    */
   void clearCell(Coord coord);
 
+  void removeGraph(String graph);
+
+  void addGraph(String type, String name, String refs);
+
 }

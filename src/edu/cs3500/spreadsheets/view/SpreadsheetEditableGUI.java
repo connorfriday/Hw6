@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 public class SpreadsheetEditableGUI extends SpreadsheetGUI {
 
   private SpreadsheetReadOnlyModel model;
-  private Features features;
+  protected Features features;
   private JTextField entryField;
   private Coord currentCell;
 

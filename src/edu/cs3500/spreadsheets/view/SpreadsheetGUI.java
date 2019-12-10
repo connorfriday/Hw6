@@ -26,7 +26,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
     //set default location to 0 0
     setLocation(0, 0);
     //set close frame to Exit on Close
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     //allow min size to be 500 x 500
     this.setMinimumSize(new Dimension(WIDTH * 3 / 4, height * 3 / 4));
     //set the spreadsheet view

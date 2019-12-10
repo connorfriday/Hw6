@@ -55,4 +55,12 @@ public interface SpreadsheetModel {
    * @return a list containing coordinates of all non-empty cells
    */
   Set<Coord> getNonEmptyCoordinates();
+
+  void addGraph(String type, String name, String refs);
+
+  void removeGraph(String name);
+
+  Map<String, SpreadsheetGraph> getGraphs();
+
+  Set<String> getGraphTypes();
 }

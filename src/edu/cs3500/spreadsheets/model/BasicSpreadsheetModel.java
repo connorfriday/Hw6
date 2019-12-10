@@ -1,17 +1,12 @@
 package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.sexp.EvaluateSexp;
-import edu.cs3500.spreadsheets.sexp.GetColumnReferences;
-import edu.cs3500.spreadsheets.sexp.GetCoordReferences;
 import edu.cs3500.spreadsheets.sexp.Parser;
-import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 import java.util.function.Function;
 
 /**
@@ -88,34 +83,6 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
     catch (IllegalArgumentException e) {
       throw new IllegalArgumentException("This update will create a cycle");
     }
-  }
-
-  private Set<Coord> getAllReferences(String s) {
-    Sexp exp = Parser.parse(s);
-    Set<Coord> refs = new HashSet<>();
-    Stack<Coord> stack = new Stack<>();
-    //add all normal coord references
-    stack.addAll(exp.accept(new GetCoordReferences()));
-    //add all column references
-    stack.addAll(exp.accept(new GetColumnReferences(new ReadOnlyBasicSpreadsheetModel(this))));
-    while (!stack.isEmpty()) {
-      Coord curr = stack.pop();
-      refs.add(curr);
-
-      if (cells.containsKey(curr)) {
-        Cell cell = cells.get(curr);
-        String str = cell.getContents();
-        if (str.charAt(0) == '=') {
-          str = str.substring(1);
-        }
-        for (Coord coord : Parser.parse(str).accept(new GetCoordReferences())) {
-          if (!refs.contains(coord)) {
-            stack.push(coord);
-          }
-        }
-      }
-    }
-    return refs;
   }
 
   @Override

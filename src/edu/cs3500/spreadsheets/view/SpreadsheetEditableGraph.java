@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JButton;
@@ -42,6 +43,8 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
     graphPanel = new JPanel();
     graphPanel.setFocusable(false);
 
+    graphPanels = new HashMap<>();
+
     JButton deleteGraphButton = new JButton("Delete a Graph");
     deleteGraphButton.addActionListener(new ActionListener() {
       @Override
@@ -75,7 +78,15 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
           return;
         }
 
-        features.addGraph(type, name, refs);
+
+        try {
+          features.addGraph(type, name, refs);
+        }
+        catch (IllegalArgumentException g) {
+          displayMessage(g.getMessage());
+          return;
+        }
+
         if (model.getGraphs().containsKey(name)) {
           viewGraph(name, model);
         }
@@ -122,6 +133,7 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
     graphFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     graphFrame.setSize(new Dimension(500,500));
     graphFrame.setVisible(true);
+    graphPanels.put(name, graphFrame);
   }
 
   @Override
@@ -129,12 +141,14 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
     Map<String, SpreadsheetGraph> graphs = model.getGraphs();
     for (String name : graphPanels.keySet()){
       JFrame frame = graphPanels.get(name);
-      frame.removeAll();
+      frame.getContentPane().removeAll();
       JPanel newChart = graphs.get(name).getChart(model);
       frame.add(newChart);
       frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       frame.setSize(new Dimension(500,500));
       frame.setVisible(true);
+      frame.repaint();
+
     }
   }
 }

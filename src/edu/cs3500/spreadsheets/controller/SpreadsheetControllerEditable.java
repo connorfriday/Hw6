@@ -99,11 +99,7 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
 
   @Override
   public void addGraph(String type, String name, String refs) {
-    try {
       model.addGraph(type, name, refs);
     }
-    catch (IllegalArgumentException e) {
-      this.view.displayMessage(e.getMessage());
-    }
   }
-}
+

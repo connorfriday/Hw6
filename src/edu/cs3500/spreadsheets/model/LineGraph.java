@@ -92,8 +92,14 @@ public class LineGraph implements SpreadsheetGraph {
 
     Map<Coord, Coord> pointSet = this.getValues();
     for(Coord c : pointSet.keySet()) {
-      double x = Double.parseDouble(model.getComputedValue(c));
-      double y = Double.parseDouble(model.getComputedValue(pointSet.get(c)));
+      double x = 0;
+      if (!model.getComputedValue(c).isEmpty()) {
+        x = Double.parseDouble(model.getComputedValue(c));
+      }
+      double y = 0;
+      if (!model.getComputedValue(pointSet.get(c)).isEmpty()) {
+        y = Double.parseDouble(model.getComputedValue(pointSet.get(c)));
+      }
       series.add(x, y);
     }
     dataset.addSeries(series);

@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.Map;
+import javax.swing.JPanel;
 import org.jfree.chart.JFreeChart;
 
 /**
@@ -37,5 +38,5 @@ public interface SpreadsheetGraph {
    * @param model the model to render the data in the graph
    * @return JFreeChart representation of the graph
    */
-  JFreeChart getChart(SpreadsheetReadOnlyModel model);
+  JPanel getChart(SpreadsheetReadOnlyModel model);
 }

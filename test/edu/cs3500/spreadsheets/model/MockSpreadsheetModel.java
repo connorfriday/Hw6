@@ -64,21 +64,21 @@ public class MockSpreadsheetModel implements SpreadsheetModel {
 
   @Override
   public void addGraph(String type, String name, String refs) {
-
+    model.addGraph(type, name, refs);
   }
 
   @Override
   public void removeGraph(String name) {
-
+    model.removeGraph(name);
   }
 
   @Override
   public Map<String, SpreadsheetGraph> getGraphs() {
-    return null;
+    return model.getGraphs();
   }
 
   @Override
   public Set<String> getGraphTypes() {
-    return null;
+    return model.getGraphTypes();
   }
 }

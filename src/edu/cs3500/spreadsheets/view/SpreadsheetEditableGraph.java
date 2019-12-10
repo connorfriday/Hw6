@@ -63,10 +63,14 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
     createGraphButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        //todo: require strings be non-empty
         String type = JOptionPane.showInputDialog("Choose a type of graph", model.getGraphTypes());
         String name = JOptionPane.showInputDialog("Insert a name for your graph (No spaces)");
         String refs = JOptionPane.showInputDialog(("Insert a 2-col or 2-row reference to graph"));
+
+        if(type.isEmpty() || name.isEmpty() || refs.isEmpty()) {
+          displayMessage("You cannot have an empty input");
+          return;
+        }
 
         features.addGraph(type, name, refs);
         if (model.getGraphs().containsKey(name)) {
@@ -104,11 +108,10 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
   }
 
   private static void viewGraph(String name, SpreadsheetReadOnlyModel model) {
-    JFreeChart chart = model.getGraphs().get(name).getChart(model);
-    JPanel chartPanel = new ChartPanel(chart);
+    JPanel chart = model.getGraphs().get(name).getChart(model);
 
     JFrame graphFrame = new JFrame();
-    graphFrame.add(chartPanel);
+    graphFrame.add(chart);
     graphFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     graphFrame.setSize(new Dimension(500,500));
     graphFrame.setVisible(true);

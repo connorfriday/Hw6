@@ -4,7 +4,9 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
@@ -69,12 +71,12 @@ public class LineGraph implements SpreadsheetGraph {
   }
 
   @Override
-  public JFreeChart getChart(SpreadsheetReadOnlyModel model) {
+  public JPanel getChart(SpreadsheetReadOnlyModel model) {
    XYDataset dataset = createDataset(model);
    JFreeChart chart = ChartFactory.createXYLineChart(
        this.name, "X-Axis", "Y-Axis", dataset, PlotOrientation.VERTICAL, true, true, false);
-
-   return chart;
+   JPanel chartPanel = new ChartPanel(chart);
+   return chartPanel;
   }
 
   private XYDataset createDataset(SpreadsheetReadOnlyModel model) {

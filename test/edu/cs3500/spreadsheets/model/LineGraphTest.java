@@ -3,10 +3,7 @@ package edu.cs3500.spreadsheets.model;
 import java.util.Map;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
 
 /**
  * A test suite for the LineGraph class.

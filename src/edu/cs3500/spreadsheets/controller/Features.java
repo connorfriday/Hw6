@@ -42,11 +42,10 @@ public interface Features {
   void removeGraph(String graph);
 
   /**
-   * Creates a new graph to be displayed
+   * Creates a new graph to be displayed.
    * @param type type of the graph
    * @param name name of the graph
    * @param refs references for the data to be used
    */
   void addGraph(String type, String name, String refs);
-
 }

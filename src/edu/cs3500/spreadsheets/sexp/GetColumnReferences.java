@@ -15,6 +15,7 @@ public class GetColumnReferences implements SexpVisitor<List<Coord>> {
 
   /**
    * Constructs a GetColumnReferences visitor.
+   *
    * @param model the model to check references.
    */
   public GetColumnReferences(SpreadsheetReadOnlyModel model) {
@@ -47,17 +48,17 @@ public class GetColumnReferences implements SexpVisitor<List<Coord>> {
     String firstCol = "";
     String secondCol = "";
 
-    if(scan.hasNext()) {
+    if (scan.hasNext()) {
       firstCol = scan.next();
     }
-    if(scan.hasNext()) {
+    if (scan.hasNext()) {
       secondCol = scan.next();
     }
-    if(firstCol.isEmpty() || secondCol.isEmpty()) {
+    if (firstCol.isEmpty() || secondCol.isEmpty()) {
       return res;
     }
 
-    if(!firstCol.matches("[a-zA-Z]+") || !secondCol.matches("[a-zA-Z]+")) {
+    if (!firstCol.matches("[a-zA-Z]+") || !secondCol.matches("[a-zA-Z]+")) {
 
       //todo this probably shouldn't return empty, probably throw exception of a malformed reference
       return res;
@@ -66,19 +67,18 @@ public class GetColumnReferences implements SexpVisitor<List<Coord>> {
     int firstColIndex = Coord.colNameToIndex(firstCol);
     int secondColIndex = Coord.colNameToIndex(secondCol);
 
-    if(firstColIndex > secondColIndex) {
+    if (firstColIndex > secondColIndex) {
       //todo this probably shouldn't return empty, probably throw exception of a malformed reference
       return res;
     }
 
-
-    for(Coord c: model.getNonEmptyCoordinates()) {
-      if(c.col <= secondColIndex && c.col >= firstColIndex) {
+    for (Coord c : model.getNonEmptyCoordinates()) {
+      if (c.col <= secondColIndex && c.col >= firstColIndex) {
         res.add(c);
       }
     }
 
-    if(res.isEmpty()) {
+    if (res.isEmpty()) {
       res.add(new Coord(firstColIndex, 1));
     }
 

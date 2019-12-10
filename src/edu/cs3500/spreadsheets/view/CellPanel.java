@@ -228,7 +228,6 @@ class CellPanel extends JPanel {
 
   //repaints the cells to update changes visually
   void repaintCell() {
-
     cellPanel.removeAll();
     fillCells();
     displayCells();

@@ -5,9 +5,7 @@ import edu.cs3500.spreadsheets.model.GraphEnabledWorksheetReader;
 import edu.cs3500.spreadsheets.model.ReadOnlyBasicSpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetModel;
 import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
-import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.BasicWorksheetBuilder;
-import edu.cs3500.spreadsheets.view.SpreadsheetEditableGUI;
 import edu.cs3500.spreadsheets.view.SpreadsheetEditableGraph;
 import edu.cs3500.spreadsheets.view.SpreadsheetTextualView;
 import edu.cs3500.spreadsheets.view.SpreadsheetView;
@@ -20,6 +18,7 @@ import java.io.PrintWriter;
  * Represents a controller for an editable spreadsheet implementation.
  */
 public class SpreadsheetControllerEditable implements Features, SpreadsheetController {
+
   private SpreadsheetModel model;
   private SpreadsheetReadOnlyModel rom;
   private SpreadsheetView view;
@@ -32,8 +31,7 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
     view.setFeatures(this);
     try {
       view.render();
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       System.out.print("Unable to render view. IO issue.");
     }
   }
@@ -46,9 +44,8 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
       }
       this.model.setCell(contents, coord);
       this.view.refreshGraphs();
-    }
-    catch (IllegalArgumentException e) {
-      this.view.displayMessage(e.getMessage() );
+    } catch (IllegalArgumentException e) {
+      this.view.displayMessage(e.getMessage());
     }
   }
 
@@ -59,8 +56,7 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
           GraphEnabledWorksheetReader.read(new BasicWorksheetBuilder(), new FileReader(sourceFile));
       SpreadsheetController c = new SpreadsheetControllerEditable();
       c.start(model);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       view.displayMessage("Unable to load file: " + sourceFile);
     }
     return model;
@@ -78,11 +74,9 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
       SpreadsheetView view = new SpreadsheetTextualView(rom, writer);
       view.render();
       writer.close();
-    }
-    catch (FileNotFoundException e) {
+    } catch (FileNotFoundException e) {
       view.displayMessage("Destination file not found.");
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       view.displayMessage("Unable to save file at destination: " + destinationFile);
     }
   }
@@ -99,7 +93,7 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
 
   @Override
   public void addGraph(String type, String name, String refs) {
-      model.addGraph(type, name, refs);
-    }
+    model.addGraph(type, name, refs);
   }
+}
 

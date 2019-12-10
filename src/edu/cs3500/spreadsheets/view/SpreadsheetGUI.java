@@ -66,5 +66,7 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
 
   @Override
   public void refreshGraphs() {
+    //this implementation of the SpreadsheetView interface does not support graphing
+    // so this method does nothing as there's no graphs to refresh
   }
 }

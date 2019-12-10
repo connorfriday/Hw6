@@ -26,6 +26,7 @@ public class LineGraph implements SpreadsheetGraph {
 
   /**
    * Constructs a new graph.
+   *
    * @param name the name of the graph
    * @param refs the references of the graph
    */
@@ -58,13 +59,12 @@ public class LineGraph implements SpreadsheetGraph {
   @Override
   public Map<Coord, Coord> getValues() {
     Map<Coord, Coord> map = new HashMap<>();
-    if(columnOriented) {
-      for(int x = topLeft.row; x <= bottomRight.row; x++) {
+    if (columnOriented) {
+      for (int x = topLeft.row; x <= bottomRight.row; x++) {
         map.put(new Coord(topLeft.col, x), new Coord(bottomRight.col, x));
       }
-    }
-    else {
-      for(int x = topLeft.col; x <= bottomRight.col; x++) {
+    } else {
+      for (int x = topLeft.col; x <= bottomRight.col; x++) {
         map.put(new Coord(x, topLeft.row), new Coord(x, bottomRight.row));
       }
     }
@@ -78,11 +78,11 @@ public class LineGraph implements SpreadsheetGraph {
 
   @Override
   public JPanel getChart(SpreadsheetReadOnlyModel model) {
-   XYDataset dataset = createDataset(model);
-   JFreeChart chart = ChartFactory.createXYLineChart(
-       this.name, "X-Axis", "Y-Axis", dataset, PlotOrientation.VERTICAL, true, true, false);
-   JPanel chartPanel = new ChartPanel(chart);
-   return chartPanel;
+    XYDataset dataset = createDataset(model);
+    JFreeChart chart = ChartFactory.createXYLineChart(
+        this.name, "X-Axis", "Y-Axis", dataset, PlotOrientation.VERTICAL, true, true, false);
+    JPanel chartPanel = new ChartPanel(chart);
+    return chartPanel;
   }
 
   private XYDataset createDataset(SpreadsheetReadOnlyModel model) {
@@ -91,7 +91,7 @@ public class LineGraph implements SpreadsheetGraph {
     XYSeries series = new XYSeries("Series");
 
     Map<Coord, Coord> pointSet = this.getValues();
-    for(Coord c : pointSet.keySet()) {
+    for (Coord c : pointSet.keySet()) {
       double x = 0;
       if (!model.getComputedValue(c).isEmpty()) {
         x = Double.parseDouble(model.getComputedValue(c));

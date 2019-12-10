@@ -71,7 +71,7 @@ public interface SpreadsheetModel {
   void removeGraph(String name);
 
   /**
-   * Get all of the graphs in this model in name, graph form
+   * Get all of the graphs in this model in name, graph form.
    * @return Map of name and graphs in model
    */
   Map<String, SpreadsheetGraph> getGraphs();

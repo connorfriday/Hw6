@@ -79,8 +79,7 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
 
     try {
       this.getComputedValue(coord);
-    }
-    catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException("This update will create a cycle");
     }
   }
@@ -95,7 +94,7 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
 
   @Override
   public String getComputedValue(Coord coord) {
-   return getComputedValue(new ArrayList<>(), coord);
+    return getComputedValue(new ArrayList<>(), coord);
   }
 
   @Override
@@ -166,7 +165,9 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
   }
 
   private void setGraphs() {
-    graphBuilders.put("LINE", (String[] info) -> {return new LineGraph(info[0], info[1]);});
+    graphBuilders.put("LINE", (String[] info) -> {
+      return new LineGraph(info[0], info[1]);
+    });
   }
 
   @Override
@@ -174,7 +175,7 @@ public class BasicSpreadsheetModel implements SpreadsheetModel {
     if (name.contains(" ") || name.contains("\n")) {
       throw new IllegalArgumentException("name cannot contain a space character");
     }
-    if(graphs.containsKey(name)) {
+    if (graphs.containsKey(name)) {
       throw new IllegalArgumentException("Cannot have two graphs with the same name");
     }
 

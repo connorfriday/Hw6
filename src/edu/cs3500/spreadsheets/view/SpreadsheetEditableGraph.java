@@ -13,15 +13,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
 
 /**
  * The view that is able to support graphing data.
  */
 public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
 
-  private JPanel graphPanel;
   private SpreadsheetReadOnlyModel model;
   private Map<String, JFrame> graphPanels;
 
@@ -40,7 +37,7 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
 
   private void setGraphPanel() {
 
-    graphPanel = new JPanel();
+    JPanel graphPanel = new JPanel();
     graphPanel.setFocusable(false);
 
     graphPanels = new HashMap<>();
@@ -50,20 +47,17 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
       @Override
       public void actionPerformed(ActionEvent e) {
         Set<String> availableGraphs = model.getGraphs().keySet();
-        if(availableGraphs.size() !=0) {
+        if (availableGraphs.size() != 0) {
           String graph = JOptionPane
               .showInputDialog(null, "Choose a graph to delete", "Delete graph",
                   JOptionPane.DEFAULT_OPTION, null, availableGraphs.toArray(),
                   availableGraphs.toArray()[0]).toString();
           features.removeGraph(graph);
-        }
-        else {
+        } else {
           JOptionPane.showMessageDialog(null, "Sorry, there are no graphs to delete.");
         }
       }
     });
-
-
 
     JButton createGraphButton = new JButton("Create a Graph");
     createGraphButton.addActionListener(new ActionListener() {
@@ -73,16 +67,14 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
         String name = JOptionPane.showInputDialog("Insert a name for your graph (No spaces)");
         String refs = JOptionPane.showInputDialog(("Insert a 2-col or 2-row reference to graph"));
 
-        if(type.isEmpty() || name.isEmpty() || refs.isEmpty()) {
+        if (type.isEmpty() || name.isEmpty() || refs.isEmpty()) {
           displayMessage("You cannot have an empty input");
           return;
         }
 
-
         try {
           features.addGraph(type, name, refs);
-        }
-        catch (IllegalArgumentException g) {
+        } catch (IllegalArgumentException g) {
           displayMessage(g.getMessage());
           return;
         }
@@ -93,21 +85,19 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
       }
     });
 
-
     JButton viewGraphButton = new JButton("View a Graph");
     viewGraphButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         Set<String> availableGraphs = model.getGraphs().keySet();
-        if(availableGraphs.size() != 0) {
+        if (availableGraphs.size() != 0) {
           String graph = JOptionPane.showInputDialog(null, "Choose a graph to view", "View graph",
               JOptionPane.PLAIN_MESSAGE, null, availableGraphs.toArray(),
               availableGraphs.toArray()[0]).toString();
           if (model.getGraphs().containsKey(graph)) {
             viewGraph(graph, model);
           }
-        }
-        else {
+        } else {
           JOptionPane.showMessageDialog(null, "Sorry, there are no graphs to view.");
         }
 
@@ -131,7 +121,7 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
     JFrame graphFrame = new JFrame();
     graphFrame.add(chart);
     graphFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    graphFrame.setSize(new Dimension(500,500));
+    graphFrame.setSize(new Dimension(500, 500));
     graphFrame.setVisible(true);
     graphPanels.put(name, graphFrame);
   }
@@ -139,13 +129,13 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
   @Override
   public void refreshGraphs() {
     Map<String, SpreadsheetGraph> graphs = model.getGraphs();
-    for (String name : graphPanels.keySet()){
+    for (String name : graphPanels.keySet()) {
       JFrame frame = graphPanels.get(name);
       frame.getContentPane().removeAll();
       JPanel newChart = graphs.get(name).getChart(model);
       frame.add(newChart);
       frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      frame.setSize(new Dimension(500,500));
+      frame.setSize(new Dimension(500, 500));
       frame.setVisible(true);
       frame.repaint();
 

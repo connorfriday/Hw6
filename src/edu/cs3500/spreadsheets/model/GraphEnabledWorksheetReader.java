@@ -9,6 +9,13 @@ import java.util.Scanner;
  */
 public final class GraphEnabledWorksheetReader {
 
+  /**
+   * Creates a model using a worksheet builder and a readable with graphs.
+   *
+   * @param builder  the builder to construct the sheet
+   * @param readable the readable containing information
+   * @return the model that the method builds
+   */
   public static SpreadsheetModel
   read(BasicWorksheetBuilder builder, Readable readable) {
 
@@ -21,10 +28,9 @@ public final class GraphEnabledWorksheetReader {
 
     SpreadsheetModel model = WorksheetReader.read(builder, new StringReader(scan.next()));
 
-    if(scan.hasNext()) {
+    if (scan.hasNext()) {
       return GraphEnabledWorksheetReader.addGraphs(model, new StringReader(scan.next()));
-    }
-    else {
+    } else {
       return model;
     }
   }
@@ -34,7 +40,7 @@ public final class GraphEnabledWorksheetReader {
     Scanner scan = new Scanner(readable);
     scan.useDelimiter("\n");
 
-    while(scan.hasNext()) {
+    while (scan.hasNext()) {
 
       Scanner line = new Scanner(scan.next());
 
@@ -42,17 +48,17 @@ public final class GraphEnabledWorksheetReader {
       String name = "";
       String refs = "";
 
-      if(line.hasNext()) {
+      if (line.hasNext()) {
         type = line.next();
       }
-      if(line.hasNext()) {
+      if (line.hasNext()) {
         name = line.next();
       }
-      if(line.hasNext()) {
+      if (line.hasNext()) {
         refs = line.next();
       }
 
-      if(type.isEmpty() || name.isEmpty() || refs.isEmpty()) {
+      if (type.isEmpty() || name.isEmpty() || refs.isEmpty()) {
         throw new IllegalArgumentException("One of type, name, or references are empty");
       }
 

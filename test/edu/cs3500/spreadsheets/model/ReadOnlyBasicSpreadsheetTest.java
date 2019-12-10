@@ -20,7 +20,7 @@ public class ReadOnlyBasicSpreadsheetTest {
   @Test
   public void testGetRawValue() throws FileNotFoundException {
     SpreadsheetModel model =
-        WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample.txt"));
+        WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample2.txt"));
     SpreadsheetReadOnlyModel rom = new ReadOnlyBasicSpreadsheetModel(model);
 
 
@@ -31,7 +31,7 @@ public class ReadOnlyBasicSpreadsheetTest {
   @Test
   public void testGetComputedValue() throws FileNotFoundException {
     SpreadsheetModel model =
-        WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample.txt"));
+        WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample2.txt"));
     SpreadsheetReadOnlyModel rom = new ReadOnlyBasicSpreadsheetModel(model);
     assertEquals(rom.getComputedValue(new Coord(1,1)), model.getComputedValue(new Coord(1,1)));
   }
@@ -39,7 +39,7 @@ public class ReadOnlyBasicSpreadsheetTest {
   @Test
   public void testFunctions() throws FileNotFoundException {
     SpreadsheetModel model =
-        WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample.txt"));
+        WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample2.txt"));
     SpreadsheetReadOnlyModel rom = new ReadOnlyBasicSpreadsheetModel(model);
     assertEquals(rom.getFunctions(), model.getFunctions());
   }
@@ -47,10 +47,24 @@ public class ReadOnlyBasicSpreadsheetTest {
   @Test
   public void testGetNonEmptyCoordinates() throws FileNotFoundException {
     SpreadsheetModel model =
-        WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample.txt"));
+        WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample2.txt"));
     SpreadsheetReadOnlyModel rom = new ReadOnlyBasicSpreadsheetModel(model);
     assertEquals(rom.getNonEmptyCoordinates(), model.getNonEmptyCoordinates());
   }
 
+  @Test
+  public void testGetGraphs() throws FileNotFoundException {
+    SpreadsheetModel model =
+        WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample2.txt"));
+    SpreadsheetReadOnlyModel rom = new ReadOnlyBasicSpreadsheetModel(model);
+    assertEquals(rom.getGraphs(), model.getGraphs());
+  }
 
+  @Test
+  public void testGetGraphTypes() throws FileNotFoundException {
+    SpreadsheetModel model =
+        WorksheetReader.read(new BasicWorksheetBuilder(), new FileReader("sample2.txt"));
+    SpreadsheetReadOnlyModel rom = new ReadOnlyBasicSpreadsheetModel(model);
+    assertEquals(rom.getGraphTypes(), model.getGraphTypes());
+  }
 }

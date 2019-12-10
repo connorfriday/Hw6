@@ -1,15 +1,17 @@
 package edu.cs3500.spreadsheets.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import org.junit.Test;
 
 /**
  * As test suite for the BasicSpreadsheetModel class.
  */
 public class BasicSpreadsheetModelTest {
-
 
   @Test
   public void testEmpty() {
@@ -222,4 +224,74 @@ public class BasicSpreadsheetModelTest {
     assertTrue(m.getFunctions().containsKey("CONCAT"));
     assertTrue(m.getFunctions().containsKey("<"));
   }
+
+  @Test
+  public void addGraph() {
+    BasicSpreadsheetModel model = new BasicSpreadsheetModel();
+    assertEquals(model.getGraphs(), new HashMap<>());
+  }
+
+  @Test
+  public void addGraph2() {
+    BasicSpreadsheetModel model = new BasicSpreadsheetModel();
+    model.addGraph("LINE", "A", "A1:B2");
+    assertTrue(model.getGraphs().containsKey("A"));
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void addGraph3()  {
+    BasicSpreadsheetModel model = new BasicSpreadsheetModel();
+    model.addGraph("LINE", " ", "A1:B2");
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void addGraph4()  {
+    BasicSpreadsheetModel model = new BasicSpreadsheetModel();
+    model.addGraph("LINE", "A", "A1:B2");
+    model.addGraph("LINE", "A", "A1:B2");
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void addGraph5()  {
+    BasicSpreadsheetModel model = new BasicSpreadsheetModel();
+    model.addGraph("BAR", "A", "A1:B2");
+  }
+
+  @Test
+  public void removeGraph() {
+    BasicSpreadsheetModel model = new BasicSpreadsheetModel();
+    model.addGraph("LINE", "A", "A1:B2");
+    model.removeGraph("A");
+    assertEquals(0, model.getGraphs().size());
+  }
+
+  @Test
+  public void removeGraph2() {
+    BasicSpreadsheetModel model = new BasicSpreadsheetModel();
+    model.addGraph("LINE", "B", "A1:B2");
+    model.removeGraph("A");
+    assertEquals(1, model.getGraphs().size());
+  }
+
+  @Test
+  public void getGraphs() {
+    BasicSpreadsheetModel model = new BasicSpreadsheetModel();
+    model.addGraph("LINE", "B", "A1:B2");
+    model.addGraph("LINE", "C", "A1:B3");
+    assertTrue(model.getGraphs().containsKey("B"));
+    assertTrue(model.getGraphs().containsKey("C"));
+    assertFalse(model.getGraphs().containsKey("A"));
+  }
+
+  @Test
+  public void getGraphTypes() {
+    BasicSpreadsheetModel model = new BasicSpreadsheetModel();
+    assertEquals(1, model.getGraphTypes().size());
+    assertEquals("LINE", model.getGraphTypes().toArray()[0]);
+  }
+
+
+
+
+
 }

@@ -6,10 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Visitor to get the column references.
+ */
 public class GetColumnReferences implements SexpVisitor<List<Coord>> {
 
-  SpreadsheetReadOnlyModel model;
+  private SpreadsheetReadOnlyModel model;
 
+  /**
+   * Constructs a GetColumnReferences visitor.
+   * @param model the model to check references.
+   */
   public GetColumnReferences(SpreadsheetReadOnlyModel model) {
     this.model = model;
   }

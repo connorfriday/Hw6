@@ -34,7 +34,15 @@ public interface SpreadsheetReadOnlyModel {
    */
   Set<Coord> getNonEmptyCoordinates();
 
+  /**
+   * Get all of the graphs in this model in name, graph form
+   * @return Map of name and graphs in model
+   */
   Map<String, SpreadsheetGraph> getGraphs();
 
+  /**
+   * Get all of the graph types supported in the model.
+   * @return a set of the supported graph types
+   */
   Set<String> getGraphTypes();
 }

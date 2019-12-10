@@ -56,7 +56,8 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
     try {
       SpreadsheetModel model =
           GraphEnabledWorksheetReader.read(new BasicWorksheetBuilder(), new FileReader(sourceFile));
-      this.start(model);
+      SpreadsheetController c = new SpreadsheetControllerEditable();
+      c.start(model);
     }
     catch (IOException e) {
       view.displayMessage("Unable to load file: " + sourceFile);

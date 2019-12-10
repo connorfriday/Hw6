@@ -20,7 +20,7 @@ public class Concat implements SpreadsheetFunction {
    * @param sheet     the spreadsheet this object is working in
    * @throws IllegalArgumentException if any arguments are null
    */
-  public Concat(
+  Concat(
       Map<String, SpreadsheetFunction> functions,
       SpreadsheetModel sheet) {
     if (functions == null) {

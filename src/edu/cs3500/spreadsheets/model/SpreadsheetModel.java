@@ -56,11 +56,29 @@ public interface SpreadsheetModel {
    */
   Set<Coord> getNonEmptyCoordinates();
 
+  /**
+   * Add a graph to the model.
+   * @param type the type of graph
+   * @param name the name of the graph
+   * @param refs the reference of the data in the graph
+   */
   void addGraph(String type, String name, String refs);
 
+  /**
+   * Remove a graph with this name.
+   * @param name the name of the graph to remove.
+   */
   void removeGraph(String name);
 
+  /**
+   * Get all of the graphs in this model in name, graph form
+   * @return Map of name and graphs in model
+   */
   Map<String, SpreadsheetGraph> getGraphs();
 
+  /**
+   * Get all of the graph types supported in the model.
+   * @return a set of the supported graph types
+   */
   Set<String> getGraphTypes();
 }

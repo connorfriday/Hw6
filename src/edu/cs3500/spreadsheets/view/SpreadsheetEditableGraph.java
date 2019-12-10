@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,20 +12,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.Plot;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.KeyedValues2DDataset;
-import org.jfree.data.statistics.HistogramDataset;
 
+/**
+ * The view that is able to support graphing data.
+ */
 public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
 
   private JPanel graphPanel;
   private SpreadsheetReadOnlyModel model;
 
   /**
-   * Constructs a spreadsheet GUI.
+   * Constructs a spreadsheet GUI with graphing capabilities.
    *
    * @param model Spreadsheet model to view
    */

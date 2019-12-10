@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A value type representing coordinates in a {@link Worksheet}.
+ * A value type representing coordinates in a {@link SpreadsheetModel}.
  */
 public class Coord {
   public final int row;

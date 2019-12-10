@@ -3,7 +3,7 @@ package edu.cs3500.spreadsheets.model;
 /**
  * Represents a cell in a spreadsheet, which has a position and contents.
  */
-public class Cell {
+ class Cell {
 
   private String contents;
 

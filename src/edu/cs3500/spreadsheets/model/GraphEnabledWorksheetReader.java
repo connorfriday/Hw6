@@ -1,10 +1,12 @@
 package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.model.WorksheetReader.BasicWorksheetBuilder;
-import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import java.io.StringReader;
 import java.util.Scanner;
 
+/**
+ * A worksheet reader that adds graphs to a model when loading from a file.
+ */
 public final class GraphEnabledWorksheetReader {
 
   public static SpreadsheetModel

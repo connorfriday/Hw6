@@ -35,8 +35,18 @@ public interface Features {
    */
   void clearCell(Coord coord);
 
+  /**
+   * Removes a specific graph from the spreadsheet.
+   * @param graph the name of the graph to be removed
+   */
   void removeGraph(String graph);
 
+  /**
+   * Creates a new graph to be displayed
+   * @param type type of the graph
+   * @param name name of the graph
+   * @param refs references for the data to be used
+   */
   void addGraph(String type, String name, String refs);
 
 }

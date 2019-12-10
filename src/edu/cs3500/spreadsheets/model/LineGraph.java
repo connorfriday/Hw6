@@ -1,22 +1,19 @@
 package edu.cs3500.spreadsheets.model;
 
-import edu.cs3500.spreadsheets.sexp.GetCoordReferences;
-import edu.cs3500.spreadsheets.sexp.Parser;
-import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.io.StringReader;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.statistics.HistogramDataset;
-import org.jfree.data.statistics.HistogramType;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+/**
+ * Represents a line graph for a spreadsheet.
+ */
 public class LineGraph implements SpreadsheetGraph {
 
   private final String name;
@@ -25,7 +22,12 @@ public class LineGraph implements SpreadsheetGraph {
   private boolean columnOriented;
   private final String refs;
 
-  public LineGraph(String name, String refs) {
+  /**
+   * Constructs a new graph.
+   * @param name the name of the graph
+   * @param refs the references of the graph
+   */
+  LineGraph(String name, String refs) {
     if(name == null || refs == null) {
       throw new IllegalArgumentException("Name or Refs is null");
     }
@@ -89,9 +91,6 @@ public class LineGraph implements SpreadsheetGraph {
     dataset.addSeries(series);
     return dataset;
   }
-
-
-
 
   private void setLeftAndRight(String refs) {
     Scanner scan = new Scanner(new StringReader(refs));

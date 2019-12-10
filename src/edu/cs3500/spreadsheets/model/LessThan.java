@@ -18,7 +18,7 @@ public class LessThan implements SpreadsheetFunction {
    * @param sheet the spreadsheet this object is working in
    * @throws IllegalArgumentException if any arguments are null
    */
-  public LessThan(
+  LessThan(
       Map<String, SpreadsheetFunction> functions,
       SpreadsheetModel sheet) {
     if (functions == null) {

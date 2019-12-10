@@ -18,7 +18,7 @@ public class Product implements SpreadsheetFunction {
    * @param sheet the spreadsheet this object is working in
    * @throws IllegalArgumentException if any arguments are null
    */
-  public Product(
+  Product(
       Map<String, SpreadsheetFunction> functions,
       SpreadsheetModel sheet) {
     if (functions == null) {

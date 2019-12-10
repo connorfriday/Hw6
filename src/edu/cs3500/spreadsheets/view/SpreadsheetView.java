@@ -32,4 +32,9 @@ public interface SpreadsheetView {
    * @param message the string contents to show
    */
   void displayMessage(String message);
+
+  /**
+   * Refreshes all graphs that exist in the view.
+   */
+  void refreshGraphs();
 }

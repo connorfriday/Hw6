@@ -30,8 +30,14 @@ public class LineGraph implements SpreadsheetGraph {
    * @param refs the references of the graph
    */
   LineGraph(String name, String refs) {
-    if(name == null || refs == null) {
+    if (name == null || refs == null) {
       throw new IllegalArgumentException("Name or Refs is null");
+    }
+    if (name.isEmpty()) {
+      throw new IllegalArgumentException("Name cannot be empty.");
+    }
+    if (name.contains(" ")) {
+      throw new IllegalArgumentException("Name cannot contain spaces");
     }
     this.refs = refs;
     this.name = name;

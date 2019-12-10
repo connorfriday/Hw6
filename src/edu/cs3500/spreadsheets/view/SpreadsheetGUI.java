@@ -63,4 +63,8 @@ public class SpreadsheetGUI extends JFrame implements SpreadsheetView {
   public void displayMessage(String message) {
     throw new UnsupportedOperationException();
   }
+
+  @Override
+  public void refreshGraphs() {
+  }
 }

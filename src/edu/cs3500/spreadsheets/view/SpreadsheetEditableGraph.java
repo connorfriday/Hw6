@@ -1,10 +1,12 @@
 package edu.cs3500.spreadsheets.view;
 
+import edu.cs3500.spreadsheets.model.SpreadsheetGraph;
 import edu.cs3500.spreadsheets.model.SpreadsheetReadOnlyModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +22,7 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
 
   private JPanel graphPanel;
   private SpreadsheetReadOnlyModel model;
+  private Map<String, JFrame> graphPanels;
 
   /**
    * Constructs a spreadsheet GUI with graphing capabilities.
@@ -74,7 +77,7 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
 
         features.addGraph(type, name, refs);
         if (model.getGraphs().containsKey(name)) {
-          SpreadsheetEditableGraph.viewGraph(name, model);
+          viewGraph(name, model);
         }
       }
     });
@@ -87,10 +90,10 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
         Set<String> availableGraphs = model.getGraphs().keySet();
         if(availableGraphs.size() != 0) {
           String graph = JOptionPane.showInputDialog(null, "Choose a graph to view", "View graph",
-              JOptionPane.DEFAULT_OPTION, null, availableGraphs.toArray(),
+              JOptionPane.PLAIN_MESSAGE, null, availableGraphs.toArray(),
               availableGraphs.toArray()[0]).toString();
           if (model.getGraphs().containsKey(graph)) {
-            SpreadsheetEditableGraph.viewGraph(graph, model);
+            viewGraph(graph, model);
           }
         }
         else {
@@ -107,7 +110,11 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
     this.add(graphPanel, BorderLayout.PAGE_END);
   }
 
-  private static void viewGraph(String name, SpreadsheetReadOnlyModel model) {
+  private void viewGraph(String name, SpreadsheetReadOnlyModel model) {
+    if (graphPanels.keySet().contains(name)) {
+      displayMessage("A view for this is already open.");
+      return;
+    }
     JPanel chart = model.getGraphs().get(name).getChart(model);
 
     JFrame graphFrame = new JFrame();
@@ -117,4 +124,17 @@ public class SpreadsheetEditableGraph extends SpreadsheetEditableGUI {
     graphFrame.setVisible(true);
   }
 
+  @Override
+  public void refreshGraphs() {
+    Map<String, SpreadsheetGraph> graphs = model.getGraphs();
+    for (String name : graphPanels.keySet()){
+      JFrame frame = graphPanels.get(name);
+      frame.removeAll();
+      JPanel newChart = graphs.get(name).getChart(model);
+      frame.add(newChart);
+      frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+      frame.setSize(new Dimension(500,500));
+      frame.setVisible(true);
+    }
+  }
 }

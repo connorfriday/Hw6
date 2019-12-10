@@ -45,6 +45,7 @@ public class SpreadsheetControllerEditable implements Features, SpreadsheetContr
         this.model.clearCell(coord);
       }
       this.model.setCell(contents, coord);
+      this.view.refreshGraphs();
     }
     catch (IllegalArgumentException e) {
       this.view.displayMessage(e.getMessage() );
